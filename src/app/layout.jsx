@@ -4,6 +4,7 @@ import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 import HeaderComponent from "../components/header/HeaderComponent";
 import FooterComponent from "../components/footer/FooterComponent";
+import PasskeyLayout from "@/components/common/PasskeyLayout";
 
 const patung = localFont({
   src: "./font/Patung.woff",
@@ -31,7 +32,7 @@ export default function RootLayout({ children }) {
         `}
       >
         <HeaderComponent />
-        {children}
+        <PasskeyLayout>{children}</PasskeyLayout>
         <FooterComponent />
       </body>
     </html>
