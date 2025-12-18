@@ -1,4 +1,6 @@
 import axios from "axios";
+import { store } from "@/store";
+import { startLoading, stopLoading } from "@/store/slices/loaderSlice";
 
 const axiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -24,19 +26,25 @@ export const apiRequest = async (method, endpoint, payload = {}, config = {}) =>
         requestConfig.data = payload;
     }
 
-    let attempt = 0;
-    const maxAttempts = 2; // initial try + 1 retry
+    store.dispatch(startLoading());
 
-    while (attempt < maxAttempts) {
-        try {
-            const response = await axiosInstance(requestConfig);
-            return response.data;
-        } catch (error) {
-            attempt += 1;
-            if (attempt >= maxAttempts) {
-                throw error;
+    try {
+        let attempt = 0;
+        const maxAttempts = 2; // initial try + 1 retry
+
+        while (attempt < maxAttempts) {
+            try {
+                const response = await axiosInstance(requestConfig);
+                return response.data;
+            } catch (error) {
+                attempt += 1;
+                if (attempt >= maxAttempts) {
+                    throw error;
+                }
             }
         }
+    } finally {
+        store.dispatch(stopLoading());
     }
 };
 
