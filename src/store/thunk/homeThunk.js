@@ -1,16 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { apiRequest } from "@/lib/axios";
+import { toast } from "react-toastify";
 
 export const fetchHomePage = createAsyncThunk(
     "home/fetchHomePage",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(
-                "http://127.0.0.1:8000/api/v1/sero-clinix/pages/home"
+            const data = await apiRequest(
+                "get",
+                "/api/v1/sero-clinix/pages/home"
             );
-            return response.data;
+
+            return data;
         } catch (error) {
-            return rejectWithValue(error.response?.data || "API Error");
+            const message =
+                error.response?.data?.message ||
+                error.message ||
+                "Failed to fetch home page";
+
+            toast.error(message);
+            return rejectWithValue(message);
         }
     }
 );
