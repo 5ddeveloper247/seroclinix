@@ -9,13 +9,25 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { homeHero } from "@/data/data.js";
+import { useSelector } from "react-redux";
+
 
 
 // =================HOME-HERO-SECTION===============//
 export default function HeroSection() {
+    const heroSlides = useSelector(
+    (state) => state.home.data?.hero_section?.slides
+  );
+
+  // 🔹 Guard
+  if (!heroSlides || heroSlides.length === 0) {
+    return null;
+  }
+
     const swiperRef = useRef(null);
 
-    const slides = homeHero || [];
+    // const slides = homeHero || [];
+    // const slides = hero.slides;
 
     useEffect(() => {
         if (!swiperRef.current) return;

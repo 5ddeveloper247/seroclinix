@@ -5,6 +5,7 @@ import "./globals.css";
 import HeaderComponent from "../components/header/HeaderComponent";
 import FooterComponent from "../components/footer/FooterComponent";
 import PasskeyLayout from "@/components/common/PasskeyLayout";
+import Providers from "./Providers";
 
 const patung = localFont({
   src: "./font/Patung.woff",
@@ -34,7 +35,9 @@ export default function RootLayout({ children }) {
 
         <PasskeyLayout>
           <HeaderComponent />
-          {children}
+          <Providers>
+            {children}
+          </Providers>
           <FooterComponent />
         </PasskeyLayout>
       </body>
