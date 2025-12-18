@@ -1,4 +1,6 @@
 import axios from "axios";
+import { store } from "@/store";
+import { startLoading, stopLoading } from "@/store/slices/loaderSlice";
 
 const axiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
