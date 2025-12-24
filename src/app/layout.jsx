@@ -32,14 +32,13 @@ export default function RootLayout({ children }) {
           antialiased
         `}
       >
-
-        <PasskeyLayout>
+        <Providers>
           <HeaderComponent />
-          <Providers>
-            {children}
-          </Providers>
+          {children}
           <FooterComponent />
-        </PasskeyLayout>
+        </Providers>
+        {/* <PasskeyLayout>
+        </PasskeyLayout> */}
       </body>
     </html>
   );

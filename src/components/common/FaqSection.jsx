@@ -1,19 +1,22 @@
 "use client";
+
 import { useState } from "react";
 import Button from "./Button";
-import { faqData } from "@/data/data.js"
 import Link from "next/link";
 
-const faqs = [
-
-];
-
-export default function FaqSection() {
+export default function FaqSection({ faqs = [] }) {
     const [openIndex, setOpenIndex] = useState(null);
+
+    // Optional: sort by display_order
+    const sortedFaqs = [...faqs].sort(
+        (a, b) => (a.display_order ?? 0) - (b.display_order ?? 0)
+    );
 
     const toggleFaq = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+
+    if (!faqs.length) return null;
 
     return (
         <section className="wrapper py-15 lg:py-[6vw]">
@@ -27,7 +30,10 @@ export default function FaqSection() {
                 </div>
 
                 <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-[.9vw]">
-                    <Link href="/faq" className="mb-0! text-nowrap opacity-40 font-normal">More Questions?</Link>
+                    <Link href="/faq" className="mb-0! text-nowrap opacity-40 font-normal">
+                        More Questions?
+                    </Link>
+
                     <Link href="/contact" className="w-full">
                         <Button
                             text="Let's Connect"
@@ -40,8 +46,8 @@ export default function FaqSection() {
 
             {/* FAQ Accordion */}
             <div className="space-y-5 lg:space-y-[2vw]">
-                {faqData.map((faq, index) => (
-                    <div key={index} className="border-b border-gray-200 pb-4">
+                {sortedFaqs.map((faq, index) => (
+                    <div key={faq.id} className="border-b border-gray-200 pb-4">
                         <button
                             onClick={() => toggleFaq(index)}
                             className="flex justify-between items-center w-full text-left cursor-pointer"
@@ -52,13 +58,15 @@ export default function FaqSection() {
                             >
                                 {index + 1}. {faq.question}
                             </span>
+
                             <span className="text-[1.5rem] transition-transform duration-300">
                                 {openIndex === index ? "−" : "+"}
                             </span>
                         </button>
 
                         <div
-                            className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index ? "max-h-40 opacity-100 mt-3" : "max-h-0 opacity-0"}`}
+                            className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index ? "max-h-40 opacity-100 mt-3" : "max-h-0 opacity-0"
+                                }`}
                         >
                             <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
                         </div>

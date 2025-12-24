@@ -1,51 +1,90 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import { products } from "@/data/data";
-import CanvasDrawer from "@/components/common/CanvasDrawer";
-import Sidebar from "./SideBar"; // Import the sidebar
+// import { products } from "@/data/data";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
+import { useSelector } from "react-redux";
+
+import CanvasDrawer from "@/components/common/CanvasDrawer";
+import Sidebar from "./SideBar";
+
 export default function ProductsPage() {
+    const { data } = useSelector((state) => state.products);
+
+    const products = data?.products || [];
+    const categories = data?.categories || [];
+    const tags = data?.tags || [];
+
     const [isCanvasOpen, setIsCanvasOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(12);
 
-    // Detect screen width to switch itemsPerPage
+    const [filters, setFilters] = useState({
+        search: "",
+        category: null,
+        tag: null,
+        price: { min: 0, max: 1000 },
+    });
+
+    /* Responsive pagination */
     useEffect(() => {
-        const handleResize = () => {
-            setItemsPerPage(window.innerWidth < 1024 ? 4 : 12);
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        const resize = () => setItemsPerPage(window.innerWidth < 1024 ? 4 : 12);
+        resize();
+        window.addEventListener("resize", resize);
+        return () => window.removeEventListener("resize", resize);
     }, []);
 
-    const totalPages = Math.ceil(products.length / itemsPerPage);
+    /* FILTER LOGIC */
+    const filteredProducts = useMemo(() => {
+        return products.filter((p) => {
+            const price = Number(p.pricing?.final_price || 0);
+
+            return (
+                (!filters.search ||
+                    p.name.toLowerCase().includes(filters.search.toLowerCase())) &&
+                (!filters.category || p.category_id === filters.category) &&
+                (!filters.tag || p.tag_ids?.includes(filters.tag)) &&
+                price >= filters.price.min &&
+                price <= filters.price.max
+            );
+        });
+    }, [products, filters]);
+
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentProducts = filteredProducts.slice(
+        startIndex,
+        startIndex + itemsPerPage
+    );
+
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
         window.scrollTo({ top: 400, behavior: "smooth" });
     };
 
-    // Get current page products
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
 
     return (
         <section>
             <div className="wrapper py-10 lg:py-5vw flex gap-7">
 
-                <div className="hidden lg:block w-[25%]">
-                    <Sidebar />
+                <div className="hidden lg:block w-[20%]">
+                    {/* <Sidebar /> */}
+                    <Sidebar
+                        categories={categories}
+                        tags={tags}
+                        filters={filters}
+                        setFilters={setFilters}
+                    />
                 </div>
 
                 {/* Products & Mobile filter button */}
                 <div className="w-full lg:w-[75%]">
                     <div className="flex items-center justify-between pt-2">
-                        <span>All {products.length} Products showing</span>
+                        <span className="text-[#909090]">All <span className="text-black">{products.length}</span> Products showing</span>
 
                         <button
                             className="lg:hidden flex items-center gap-2 bg-footer text-white px-4 py-2 rounded-full"
@@ -57,13 +96,19 @@ export default function ProductsPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-[2vw] mt-10">
-                        {currentProducts.map((product, i) => (
-                            <Link href="/productDetail">
-                                <div key={i}>
+                        {currentProducts.map((product) => (
+                            <Link href={`/productDetail/${product.id}`} key={product.id}>
+                                <div>
                                     <div className="relative h-80 lg:h-[23vw] bg-[#F6F6F6] w-full rounded-2xl lg:rounded-[1vw] border border-[#1919191A]">
-                                        <Image src={product.img} fill className="object-fill rounded-2xl lg:rounded-[1vw]" alt={product.name} />
-                                        <span className="py-2 px-4 rounded-full bg-footer absolute top-[1vw] right-[1vw] text-white">Hot Sale</span>
+                                        <Image
+                                            src={product.images?.[0]}
+                                            fill
+                                            className="object-contain rounded-2xl lg:rounded-[1vw]"
+                                            alt={product.name}
+                                        />
+                                        <span className="py-2 px-4 rounded-full bg-primary absolute top-[1vw] right-[1vw] text-white">Hot Sale</span>
                                     </div>
+
                                     <div className="flex flex-col items-center gap-3 mt-4">
                                         <div className="flex items-center gap-1">
                                             <img src="/svg/star.svg" alt="" />
@@ -72,7 +117,7 @@ export default function ProductsPage() {
                                             <img src="/svg/star.svg" alt="" />
                                         </div>
                                         <h6 className="mb-0! leading-none">{product.name}</h6>
-                                        <span>{product.price}</span>
+                                        <span>${product.pricing.final_price}</span>
                                     </div>
                                 </div>
                             </Link>
@@ -85,12 +130,16 @@ export default function ProductsPage() {
                             <button
                                 key={i}
                                 onClick={() => handlePageChange(i + 1)}
-                                className={`h-3 w-3 h-[2vw] w-[2vw] flex items-center justify-center rounded-full border ${currentPage === i + 1 ? "bg-primary text-white border-primary" : "bg-white text-primary border-none"
+                                className={`h-3 w-3 lg:h-[2vw] lg:w-[2vw] flex items-center justify-center rounded-full border 
+                                    ${currentPage === i + 1
+                                        ? "bg-primary text-white border-primary"
+                                        : "bg-white text-primary border-none"
                                     }`}
                             >
                                 {i + 1}
                             </button>
                         ))}
+
                         {currentPage < totalPages && (
                             <button
                                 onClick={() => handlePageChange(currentPage + 1)}
@@ -113,7 +162,13 @@ export default function ProductsPage() {
                         </div>
                     }
                 >
-                    <Sidebar />
+                    {/* <Sidebar /> */}
+                    <Sidebar
+                        categories={categories}
+                        tags={tags}
+                        filters={filters}
+                        setFilters={setFilters}
+                    />
                 </CanvasDrawer>
 
             </div>

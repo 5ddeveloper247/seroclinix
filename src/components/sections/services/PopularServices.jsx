@@ -1,21 +1,36 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { popularServices } from "@/data/data";
+// import { popularServices } from "@/data/data";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/common/Button";
+
+import { useSelector } from "react-redux";
+
 
 export default function PopularService() {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const swiperRef = useRef(null);
+
+    const { data } = useSelector((state) => state.service);
+    const services = data?.services || [];
+
+    const popularServices = useMemo(() => {
+        return services.filter((service) =>
+            service.tags?.some(tag => tag.name === "Expert")
+        );
+    }, [services]);
+
+
+
 
     // Update navigation refs after swiper mounts
     useEffect(() => {
@@ -83,7 +98,7 @@ export default function PopularService() {
                         <SwiperSlide key={service.id}>
                             <div className="bg-[#F6F6F6] rounded-2xl lg:rounded-[1vw] p-6 lg:p-[1.5vw] flex flex-col gap-[1.5vw] hover:shadow-lg transition duration-300">
                                 <div className="flex items-center justify-between">
-                                    <h5>{service.title}</h5>
+                                    <h5>{service.heading}</h5>
                                     <div className="w-8 h-8  lg:h-[2.5vw] lg:w-[2.5vw] rounded-full flex items-center justify-center border">
                                         <ChevronRight className="lg:size-[1.5vw]" />
                                     </div>
@@ -95,8 +110,8 @@ export default function PopularService() {
 
                                 <div className="flex items-center justify-between mt-10">
                                     <img
-                                        src={service.icon}
-                                        className="w-7 lg:w-[1.5vw]"
+                                        src="/svg/emergency-kit.svg"
+                                        className="w-7 lg:w-[2.3vw]"
                                         alt={service.title}
                                     />
                                     <Link href="/booking">

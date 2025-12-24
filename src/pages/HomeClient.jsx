@@ -13,7 +13,7 @@ import FaqSection from "@/components/common/FaqSection";
 
 export default function HomeClient() {
     const dispatch = useDispatch();
-    const { loading, error } = useSelector(state => state.home);
+    const { data, loading, error } = useSelector(state => state.home);
 
     useEffect(() => {
         dispatch(fetchHomePage());
@@ -28,8 +28,13 @@ export default function HomeClient() {
             <AboutSection />
             <ServicesSection />
             <WorkSection />
-            <TestimonialSection />
-            <FaqSection />
+
+            {/* Only render if testimonials exist */}
+            {data?.testimonials?.length > 0 && (
+                <TestimonialSection testimonials={data.testimonials} />
+            )}
+
+            <FaqSection faqs={data?.faqs} />
         </>
     );
 }

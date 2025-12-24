@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchHomePage } from "../thunk/homeThunk";
+import { fetchServicePage } from "../thunk/serviceThunk";
 
-const homeSlice = createSlice({
-    name: "home",
+const serviceSlice = createSlice({
+    name: "service",
     initialState: {
         data: null,
         loading: false,
@@ -11,19 +11,19 @@ const homeSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchHomePage.pending, (state) => {
+            .addCase(fetchServicePage.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchHomePage.fulfilled, (state, action) => {
+            .addCase(fetchServicePage.fulfilled, (state, action) => {
                 state.loading = false;
                 state.data = action.payload.data;
             })
-            .addCase(fetchHomePage.rejected, (state, action) => {
+            .addCase(fetchServicePage.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
     },
 });
 
-export default homeSlice.reducer;
+export default serviceSlice.reducer;

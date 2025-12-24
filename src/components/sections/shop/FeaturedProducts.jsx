@@ -7,30 +7,28 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { featuredProducts } from "@/data/data";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/common/Button";
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts({ products = [] }) {
+    const featuredProducts = products.slice(0, 6);
 
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const swiperRef = useRef(null);
 
-    // Update navigation refs after swiper mounts
     useEffect(() => {
-        if (
-            swiperRef.current &&
-            swiperRef.current.params &&
-            swiperRef.current.params.navigation
-        ) {
+        if (swiperRef.current?.params?.navigation) {
             swiperRef.current.params.navigation.prevEl = prevRef.current;
             swiperRef.current.params.navigation.nextEl = nextRef.current;
             swiperRef.current.navigation.init();
             swiperRef.current.navigation.update();
         }
     }, []);
+
+    if (!featuredProducts.length) return null;
+    const enableLoop = featuredProducts.length > 3;
 
     return (
         <section className="py-16 lg:py-[6vw] relative">
@@ -42,37 +40,30 @@ export default function FeaturedProducts() {
                             Popular Services
                         </h2>
                         <h2>Find our most popular services</h2>
-                        <p className="lg:leading-none lg:mb-0! mt-5">Our veterinary team is committed to providing safe effective and compassionate care for pets of all ages</p>
+                        <p className="lg:leading-none lg:mb-0! mt-5">
+                            Our veterinary team is committed to providing safe effective and compassionate care for pets of all ages
+                        </p>
                     </div>
 
-                    {/* Navigation Buttons */}
+                    {/* Navigation */}
                     <div className="hidden lg:flex items-center gap-3">
-                        <button
-                            ref={prevRef}
-                            className="border border-primary text-primary rounded-full p-2 lg:p-[.5vw] hover:bg-primary hover:text-white transition"
-                        >
-                            <ChevronLeft className="w-5 h-5 lg:w-[1.4vw] lg:h-[1.4vw]" />
+                        <button ref={prevRef} className="border border-primary text-primary rounded-full p-2 hover:bg-primary hover:text-white transition">
+                            <ChevronLeft />
                         </button>
-                        <button
-                            ref={nextRef}
-                            className="border border-primary text-primary rounded-full p-2 lg:p-[.5vw] hover:bg-primary hover:text-white transition"
-                        >
-                            <ChevronRight className="w-5 h-5 lg:w-[1.4vw] lg:h-[1.4vw]" />
+                        <button ref={nextRef} className="border border-primary text-primary rounded-full p-2 hover:bg-primary hover:text-white transition">
+                            <ChevronRight />
                         </button>
                     </div>
                 </div>
 
-                {/* Swiper Slider */}
+                {/* Slider */}
                 <Swiper
                     modules={[Navigation, Autoplay]}
                     spaceBetween={20}
                     slidesPerView={3}
-                    loop
+                    loop={enableLoop}
                     speed={1500}
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    }}
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
                     onSwiper={(swiper) => (swiperRef.current = swiper)}
                     breakpoints={{
                         320: { slidesPerView: 1 },
@@ -82,12 +73,12 @@ export default function FeaturedProducts() {
                 >
                     {featuredProducts.map((product) => (
                         <SwiperSlide key={product.id}>
-                            <div className="bg-[#F6F4F0] relative rounded-2xl lg:rounded-[1vw] h-50 lg:h-[20vw]">
+                            <div className="bg-[#F6F4F0] relative rounded-2xl h-50 lg:h-[20vw]">
                                 <Image
-                                    src={product.image}
+                                    src={product.images?.[0]}
                                     fill
-                                    className=" object-contain"
-                                    alt="Product Image"
+                                    className="object-contain"
+                                    alt={product.name}
                                 />
                             </div>
                         </SwiperSlide>
@@ -100,12 +91,10 @@ export default function FeaturedProducts() {
                         <p className="mt-4">Contact us for product requests.</p>
                     </div>
                     <Link href="/contact">
-                        <Button
-                            text="Contact Us"
-                        />
+                        <Button text="Contact Us" />
                     </Link>
                 </div>
             </div>
         </section>
-    )
+    );
 }

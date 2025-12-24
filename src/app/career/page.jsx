@@ -1,11 +1,9 @@
-import HeroSection from "@/components/common/HeroSection";
-import JobListings from "@/components/sections/career/JobListing";
+import CareerClient from "@/pages/CareerClient"
 
 export default function career () {
     return (
         <>
-            <HeroSection title="Careers" bg="/images/banners/career.png" alt="Career Image" />
-            <JobListings />
+            <CareerClient />
         </>
     )
 }

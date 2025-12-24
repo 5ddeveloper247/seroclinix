@@ -1,20 +1,30 @@
-import Image from "next/image"
-import ServiceHeading from "@/components/common/ServiceHeading"
-import { ArrowRightIcon } from "@heroicons/react/24/outline"
-import Link from "next/link"
-import { servicesData } from "@/data/data.js"
+"use client";
+
+import { useSelector } from "react-redux";
+import Image from "next/image";
+import ServiceHeading from "@/components/common/ServiceHeading";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export default function ServicesSection() {
+    const { data, loading } = useSelector((state) => state.home);
+
+    const services = data?.featured_services || [];
+
+    if (loading || services.length === 0) return null;
+
     return (
         <section className="bg-second-bg">
             <div className="wrapper py-15 lg:py-[7vw]">
                 <div className="text-center">
-                    <h2 className="font-pat text-[40px] text-primary mb-0!">Our Services</h2>
+                    <h2 className="font-pat text-[40px] text-primary mb-0!">
+                        Our Services
+                    </h2>
                     <ServiceHeading />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[3vw] mt-10">
-                    {/* Left Feature Card */}
+                    {/* LEFT FEATURE CARD (static) */}
                     <div className="d_card relative overflow-hidden rounded-4xl lg:rounded-[2vw] flex items-center gap-[.7vw] bg-primary p-10 lg:p-0 min-h-75">
                         <Image
                             src="/images/home/service-one.png"
@@ -28,8 +38,8 @@ export default function ServicesSection() {
                         </h3>
                     </div>
 
-                    {/* Dynamic service cards */}
-                    {servicesData.map((service) => (
+                    {/* API SERVICES */}
+                    {services.map((service) => (
                         <div
                             key={service.id}
                             className="flex flex-col justify-center bg-white rounded-4xl lg:rounded-[2vw] p-5 lg:p-[2vw] gap-5 lg:gap-[1vw] min-h-75"
@@ -39,21 +49,24 @@ export default function ServicesSection() {
                                     src={service.image}
                                     className="rounded-[50px] object-cover"
                                     fill
-                                    alt={service.title}
+                                    alt={service.heading}
                                 />
                             </div>
 
-                            <h4>{service.title}</h4>
+                            <h4>{service.heading}</h4>
                             <p className="mb-0!">{service.description}</p>
 
-                            <Link href={service.link} className="flex items-center gap-[.8vw]">
+                            <Link
+                                href={`/services/${service.id}`}
+                                className="flex items-center gap-[.8vw]"
+                            >
                                 Read more
                                 <ArrowRightIcon className="size-[1.3vw] text-primary" />
                             </Link>
                         </div>
                     ))}
 
-                    {/* Last large image */}
+                    {/* RIGHT LARGE IMAGE (static) */}
                     <div>
                         <div className="relative h-full w-full min-h-75">
                             <Image
@@ -67,5 +80,5 @@ export default function ServicesSection() {
                 </div>
             </div>
         </section>
-    )
+    );
 }

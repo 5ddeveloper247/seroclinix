@@ -1,9 +1,21 @@
 import Image from "next/image"
 import Button from "@/components/common/Button"
-import { packageData } from "@/data/data"
+// import { packageData } from "@/data/data"
 import Link from "next/link"
+import { useSelector } from "react-redux"
 
 export default function Packages() {
+
+    const { data } = useSelector(state => state.service);
+    const pricingPlans = data?.pricing_plans || [];
+
+    const planImages = [
+        "/svg/pkg-one.svg",
+        "/svg/pkg-two.svg",
+        "/svg/pkg-three.svg",
+    ];
+
+
     return (
         <section className="h-fit w-full relative bg-center bg-cover" style={{ backgroundImage: "url('/images/package/package.jpg')" }}>
             <div className="h-[3vw] w-full hidden lg:block absolute top-0 left-0 z-10">
@@ -40,29 +52,33 @@ export default function Packages() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[2vw]">
-                        {packageData.map((pkg) => (
+                        {pricingPlans.map((plan, index) => (
                             <div
-                                key={pkg.id}
+                                key={plan.id}
                                 className="bg-white p-7 lg:p-[2vw] rounded-2xl lg:rounded-[1vw] w-full hover:shadow-lg transition duration-300"
                             >
                                 {/* Header */}
                                 <div className="flex flex-col gap-[.5vw] items-center justify-center text-center">
-                                    <img src={pkg.icon} className="w-15 lg:w-[4vw]" alt={pkg.title} />
-                                    <h6>{pkg.title}</h6>
-                                    <span>{pkg.sessions}</span>
+                                    <img
+                                        src={planImages[index] || "/svg/pkg-one.svg"}
+                                        className="w-15 lg:w-[4vw]"
+                                        alt={plan.title}
+                                    />
+                                    <h6>{plan.title}</h6>
+                                    <span>{plan.heading}</span>
                                 </div>
 
                                 <hr className="my-7 opacity-10" />
 
                                 {/* Description */}
-                                <p className="text-center opacity-100 font-medium">{pkg.description}</p>
+                                <p className="text-center opacity-100 font-medium">{plan.description}</p>
 
                                 <hr className="my-7 opacity-10" />
 
                                 {/* Price Section */}
                                 <h3 className="flex flex-wrap items-center justify-center gap-1 leading-none text-center">
-                                    {pkg.price} /
-                                    <span className="font-normal">{pkg.note}</span>
+                                    {plan.price} /
+                                    <span className="font-normal">{plan.price_suffix}</span>
                                 </h3>
 
                                 {/* Button */}

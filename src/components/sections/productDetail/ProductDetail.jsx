@@ -2,27 +2,23 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { productDetailData } from "@/data/data";
+// import { productDetailData } from "@/data/data";
 import ProductTabs from "./ProductTabs";
 import Button from "@/components/common/Button";
 
-export default function ProductDetailPage({ productId }) {
-    const product = productDetailData.find((p) => p.id === productId) || productDetailData[0];
+export default function ProductDetailPage({ product  }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [fade, setFade] = useState(true);
     const [quantity, setQuantity] = useState(1);
 
-
-    // Trigger fade effect when image changes
     useEffect(() => {
-        setFade(false); // start fade out
-        const timeout = setTimeout(() => setFade(true), 50); // fade in after short delay
+        setFade(false);
+        const timeout = setTimeout(() => setFade(true), 50);
         return () => clearTimeout(timeout);
     }, [currentImageIndex]);
 
-    const selectImage = (index) => {
-        setCurrentImageIndex(index);
-    };
+    const selectImage = (index) => setCurrentImageIndex(index);
+
 
     return (
         <section className="wrapper pt-10 lg:pt-[5vw]">
@@ -42,29 +38,27 @@ export default function ProductDetailPage({ productId }) {
                     </div>
 
                     {/* Pagination Dots */}
-                    <div className="flex gap-2 mt-4 ">
-                        {product.images.map((_, index) => (
+                    <div className="flex gap-2 mt-4">
+                        {product.images.map((_, idx) => (
                             <span
-                                key={index}
-                                onClick={() => selectImage(index)}
-                                className={`w-5 h-1 rounded-full cursor-pointer transition-all duration-300 ${currentImageIndex === index ? "bg-primary scale-125" : "bg-gray-300"
-                                    }`}
-                            ></span>
+                                key={idx}
+                                onClick={() => selectImage(idx)}
+                                className={`w-5 h-1 rounded-full cursor-pointer transition-all duration-300 ${currentImageIndex === idx ? "bg-primary scale-125" : "bg-gray-300"}`}
+                            />
                         ))}
                     </div>
 
+
                     {/* Thumbnails */}
                     <div className="grid grid-cols-7 gap-2 mt-4 overflow-x-auto">
-                        {product.images.map((img, index) => (
-                            <div
-                                key={index}
-                                className={`relative w-16 h-16 lg:w-[5vw] lg:h-[5vw] border rounded-lg cursor-pointer overflow-hidden ${currentImageIndex === index ? "border-primary" : "border-gray-200"
-                                    }`}
-                                onClick={() => selectImage(index)}
-                            >
-                                <Image src={img} alt={product.name} fill className="object-cover" />
-                            </div>
+                        {product.images.map((_, idx) => (
+                            <span
+                                key={idx}
+                                onClick={() => selectImage(idx)}
+                                className={`w-5 h-1 rounded-full cursor-pointer transition-all duration-300 ${currentImageIndex === idx ? "bg-primary scale-125" : "bg-gray-300"}`}
+                            />
                         ))}
+
                     </div>
                 </div>
 
@@ -80,7 +74,10 @@ export default function ProductDetailPage({ productId }) {
                         <span className="opacity-40">(1 customer review)</span>
                     </div>
                     <h3 className="font-medium mb-4 lg:mb-0!">{product.name}</h3>
-                    <h6 className="">{product.price}</h6>
+                    <div className="flex items-center gap-2">
+                        <h6 className="line-through opacity-60">${product.pricing.base_price}</h6>
+                        <h5 className="font-medium">${product.pricing.final_price}</h5>
+                    </div>
 
                     <p className="text-gray-700">{product.description}</p>
 
@@ -96,13 +93,7 @@ export default function ProductDetailPage({ productId }) {
                             </button>
 
                             {/* Input */}
-                            <input
-                                type="number"
-                                value={quantity}
-                                onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
-                                className="w-full text-center outline-none"
-                                min={1}
-                            />
+                            <input type="number" value={quantity} onChange={e => setQuantity(Math.max(1, Number(e.target.value)))} />
 
                             {/* Plus button */}
                             <button
@@ -122,13 +113,13 @@ export default function ProductDetailPage({ productId }) {
                         />
 
                         <Button
-                            text="Add To Cart"
+                            text="Buy Now"
                             className="justify-center"
                         />
                     </div>
 
                     <div className="mt-4 flex flex-col gap-2">
-                        <span className="text-gray-500"><strong>Brand:</strong> {product.brand}</span>
+                        {/* <span className="text-gray-500"><strong>Brand:</strong> {product.brand}</span> */}
                         <span className="text-gray-500"><strong>Category:</strong> {product.category}</span>
                         <span className="text-gray-500"><strong>Tags:</strong> {product.tags.join(", ")}</span>
                     </div>
