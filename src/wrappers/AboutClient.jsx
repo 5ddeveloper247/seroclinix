@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAboutPage } from "@/store/thunk/aboutThunk";
 
 import HeroSection from "@/components/common/HeroSection";
 import OurMembers from "@/components/sections/about/OurMembers";
@@ -14,7 +13,15 @@ export default function AboutClient() {
     const { data, loading, error } = useSelector((state) => state.about);
 
     useEffect(() => {
-        dispatch(fetchAboutPage());
+        // dynamically import the thunk on client-side to avoid build-time circular init
+        let mounted = true;
+        (async () => {
+            if (!mounted) return;
+            const module = await import("@/store/thunk/aboutThunk");
+            const { fetchAboutPage } = module;
+            dispatch(fetchAboutPage());
+        })();
+        return () => { mounted = false; };
     }, [dispatch]);
 
     if (loading) return <p>Loading...</p>;
@@ -29,11 +36,6 @@ export default function AboutClient() {
                 bg={hero?.image?.value}
                 alt="About Banner"
             >
-                {/* {hero?.heading?.value && (
-                    <p className="text-white mt-4 max-w-[60vw] text-center opacity-80">
-                        {hero.heading.value}
-                    </p>
-                )} */}
             </HeroSection>
             <WhoWeAre />
             <OurMembers />

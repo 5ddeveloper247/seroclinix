@@ -1,4 +1,4 @@
-import BlogClient from "@/pages/BlogClient";
+import BlogClient from "@/wrappers/BlogClient";
 
 export default function blog () {
     return (

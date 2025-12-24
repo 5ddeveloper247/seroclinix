@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHomePage } from "@/store/thunk/homeThunk";
 
 import HeroSection from "@/components/sections/home/HeroSection";
 import AboutSection from "@/components/sections/home/AboutSection";
@@ -16,7 +15,14 @@ export default function HomeClient() {
     const { data, loading, error } = useSelector(state => state.home);
 
     useEffect(() => {
-        dispatch(fetchHomePage());
+        let mounted = true;
+        (async () => {
+            if (!mounted) return;
+            const module = await import("@/store/thunk/homeThunk");
+            const { fetchHomePage } = module;
+            dispatch(fetchHomePage());
+        })();
+        return () => { mounted = false; };
     }, [dispatch]);
 
     if (loading) return <p>Loading...</p>;

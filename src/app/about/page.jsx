@@ -1,4 +1,4 @@
-import AboutClient from "@/pages/AboutClient"
+import AboutClient from "@/wrappers/AboutClient"
 
 export default function about () {
     return (

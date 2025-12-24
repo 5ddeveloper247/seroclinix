@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchServicePage } from "@/store/thunk/serviceThunk";
 
 import FaqSection from "@/components/common/FaqSection";
 import HeroSection from "@/components/common/HeroSection";
@@ -17,7 +16,14 @@ export default function ServicesClient() {
     const { data, loading, error } = useSelector((state) => state.service);
 
     useEffect(() => {
-        dispatch(fetchServicePage());
+        let mounted = true;
+        (async () => {
+            if (!mounted) return;
+            const module = await import("@/store/thunk/serviceThunk");
+            const { fetchServicePage } = module;
+            dispatch(fetchServicePage());
+        })();
+        return () => { mounted = false; };
     }, [dispatch]);
 
     if (loading) return <p>Loading...</p>;

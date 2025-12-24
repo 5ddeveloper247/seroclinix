@@ -1,4 +1,4 @@
-import ProductDetailClient from "@/pages/ProductDetailClient";
+import ProductDetailClient from "@/wrappers/ProductDetailClient";
 
 export default function productDetail() {
     return (

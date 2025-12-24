@@ -9,14 +9,20 @@ import FaqSection from "@/components/common/FaqSection";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchShopPage } from "@/store/thunk/shopThunk";
 
 export default function ShopClient() {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.products);
 
     useEffect(() => {
-        dispatch(fetchShopPage());
+        let mounted = true;
+        (async () => {
+            if (!mounted) return;
+            const module = await import("@/store/thunk/shopThunk");
+            const { fetchShopPage } = module;
+            dispatch(fetchShopPage());
+        })();
+        return () => { mounted = false; };
     }, [dispatch]);
 
     if (loading) return <p>Loading...</p>;

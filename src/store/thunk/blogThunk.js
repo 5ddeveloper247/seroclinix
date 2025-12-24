@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiRequest } from "@/lib/axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 export const fetchBlogPage = createAsyncThunk(
     "blog/fetchBlogPage",
@@ -18,7 +18,7 @@ export const fetchBlogPage = createAsyncThunk(
                 error.message ||
                 "Failed to fetch blog page";
 
-            toast.error(message);
+            // toast.error(message);
             return rejectWithValue(message);
         }
     }

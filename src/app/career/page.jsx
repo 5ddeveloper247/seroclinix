@@ -1,4 +1,4 @@
-import CareerClient from "@/pages/CareerClient"
+import CareerClient from "@/wrappers/CareerClient"
 
 export default function career () {
     return (

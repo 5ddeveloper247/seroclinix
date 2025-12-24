@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBlogPage } from "@/store/thunk/blogThunk";
 
 import ArticleSection from "@/components/sections/blog/ArticleSection"
 import HeroSection from "@/components/common/HeroSection"
@@ -14,7 +13,14 @@ export default function BlogClient() {
     const { data, loading, error } = useSelector((state) => state.blog);
 
     useEffect(() => {
-        dispatch(fetchBlogPage());
+        let mounted = true;
+        (async () => {
+            if (!mounted) return;
+            const module = await import("@/store/thunk/blogThunk");
+            const { fetchBlogPage } = module;
+            dispatch(fetchBlogPage());
+        })();
+        return () => { mounted = false; };
     }, [dispatch]);
 
     if (loading) return <p>Loading...</p>;

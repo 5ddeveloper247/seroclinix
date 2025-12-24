@@ -1,4 +1,4 @@
-import ServicesClient from "@/pages/ServicesClient"
+import ServicesClient from "@/wrappers/ServicesClient"
 
 export default function service () {
     return (
