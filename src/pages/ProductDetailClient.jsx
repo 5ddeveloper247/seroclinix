@@ -29,7 +29,7 @@ export default function ProductDetailClient() {
         <>
             <HeroSection title={data.name} bg="/images/banners/shop.jpg" alt="Banner Image" />
             <ProductDetailPage product={data} />
-            <FeaturedProducts product={data} />
+            <FeaturedProducts />
             {data?.testimonials?.length > 0 && (
                 <div className="bg-[rgba(241,241,241,0.6)]">
                     <TestimonialSection testimonials={data.testimonials} />
