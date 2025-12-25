@@ -10,6 +10,8 @@
   "dependencies": {
     "@headlessui/react": "^0.0.0-insiders.589ea90",
     "@heroicons/react": "^2.2.0",
+    "@heroui/react": "^3.0.0-beta.3",
+    "@heroui/styles": "^3.0.0-beta.3",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.2",
     "gsap": "^3.13.0",

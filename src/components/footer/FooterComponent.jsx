@@ -3,8 +3,48 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
+import { useState, useCallback } from "react";
+import { toast } from "react-toastify";
+import { apiRequest } from "@/lib/axios";
 
 export default function FooterComponent() {
+
+    const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleSubscribe = useCallback(async () => {
+        if (!email.trim()) {
+            toast.error("Please enter your email");
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            toast.error("Please enter a valid email address");
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            await apiRequest("post", "/api/v1/sero-clinix/newsletters", {
+                email: email.trim(),
+            });
+
+
+            toast.success("Subscribed successfully!");
+            setEmail("");
+        } catch (error) {
+            const apiMessage =
+                error?.response?.data?.errors?.email?.[0] ||
+                error?.response?.data?.message ||
+                "Subscription failed. Please try again.";
+
+            toast.error(apiMessage);
+        } finally {
+            setLoading(false);
+        }
+    }, [email]);
+
     return (
         <footer className="bg-[#00565F] pt-15 lg:pt-[7vw] pb-[3vw] relative overflow-hidden">
             {/* Top Wave */}
@@ -64,19 +104,25 @@ export default function FooterComponent() {
                             attention for illness or injury
                         </p>
 
-                        <div className="border-2 border-white px-4 py-3 lg:py-[.8vw] lg:px-[1.5vw] rounded-full relative w-full max-w-sm">
+                        {/* Newsletter */}
+                        <div className="border-2 border-white px-4 py-3 lg:py-[.8vw] lg:px-[0.5vw] rounded-full relative w-full max-w-sm">
                             <input
                                 id="email"
                                 type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Your email"
                                 className="w-full bg-transparent text-white placeholder:text-white border-none outline-none focus:ring-0"
                             />
-                            <label
-                                htmlFor="email"
-                                className="absolute border-[#00565F] border-3 lg:border-[.2vw] right-0 top-0 h-full w-24 lg:w-[7vw] flex items-center justify-center bg-white text-[#00565F] rounded-full font-medium cursor-pointer"
+
+                            <button
+                                type="button"
+                                onClick={handleSubscribe}
+                                disabled={loading}
+                                className="absolute border-[#00565F] border-3 lg:border-[.2vw] right-0 top-0 h-full w-20 lg:w-[7vw] flex items-center justify-center bg-white text-[#00565F] rounded-full font-medium disabled:opacity-60"
                             >
-                                Subscribe
-                            </label>
+                                {loading ? "..." : "Subscribe"}
+                            </button>
                         </div>
                     </div>
 

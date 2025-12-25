@@ -23,8 +23,8 @@ export default function BlogClient() {
         return () => { mounted = false; };
     }, [dispatch]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error: {error}</p>;
 
     const hero = data?.hero?.hero_slide_1;
 

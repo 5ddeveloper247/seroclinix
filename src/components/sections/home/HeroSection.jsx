@@ -12,23 +12,30 @@ import "swiper/css/effect-fade";
 
 export default function HeroSection() {
     const swiperRef = useRef(null);
-
-    const { data, loading } = useSelector((state) => state.home);
+    const { data } = useSelector((state) => state.home);
 
     /**
-     * Convert hero object → array
+     * Convert hero object → array, or fallback placeholder
      */
     const slides = useMemo(() => {
-        if (!data?.hero) return [];
+        if (!data?.hero || Object.keys(data.hero).length === 0) {
+            return [
+                {
+                    id: 0,
+                    subtitle: "",
+                    text: "",
+                    bg: "/images/home/home-hero-1.jpg", // placeholder image
+                },
+            ];
+        }
 
         return Object.values(data.hero).map((item, index) => ({
             id: index + 1,
             subtitle: item.title?.value || "",
             text: item.heading?.value || "",
-            bg: item.image?.value || "/images/hero-placeholder.jpg",
+            bg: item.image?.value || "/images/home/home-hero-1.jpg",
         }));
     }, [data]);
-
 
     const hasAnimatedOnce = useRef(false);
 
@@ -37,14 +44,18 @@ export default function HeroSection() {
 
         const swiper = swiperRef.current.swiper;
 
-        // Animate ONLY once on initial load
-        if (!hasAnimatedOnce.current) {
+        // Only run animations if real data exists
+        const realSlidesExist = data?.hero && Object.keys(data.hero).length > 0;
+
+        if (!hasAnimatedOnce.current && realSlidesExist) {
             animateText(swiper.slides[swiper.activeIndex]);
             hasAnimatedOnce.current = true;
         }
 
         const handleSlideChange = () => {
-            animateText(swiper.slides[swiper.activeIndex]);
+            if (realSlidesExist) {
+                animateText(swiper.slides[swiper.activeIndex]);
+            }
         };
 
         swiper.on("slideChangeTransitionStart", handleSlideChange);
@@ -52,8 +63,7 @@ export default function HeroSection() {
         return () => {
             swiper.off("slideChangeTransitionStart", handleSlideChange);
         };
-    }, [slides]);
-
+    }, [slides, data]);
 
     const animateText = (slideEl) => {
         if (!slideEl) return;
@@ -86,8 +96,6 @@ export default function HeroSection() {
             }
         );
     };
-
-    if (loading) return null;
 
     return (
         <div className="h-[80vh] lg:h-[90vh] w-full relative overflow-hidden">
@@ -131,16 +139,29 @@ export default function HeroSection() {
                 ))}
             </Swiper>
 
+            {/* Badge */}
             <div className="h-24 w-24 lg:h-[8vw] lg:w-[8vw] rounded-full absolute right-3 bottom-10 lg:right-[3vw] lg:bottom-[3vw] z-80">
                 <Image src="/svg/home-badge.svg" fill priority alt="Badge" />
             </div>
 
+            {/* Wave */}
             <div className="h-[3vw] w-full absolute bottom-0 left-0 z-10 hidden lg:block">
-                <Image src="/svg/wave.svg" alt="Wave Image" fill priority className="object-cover" />
+                <Image
+                    src="/svg/wave.svg"
+                    alt="Wave Image"
+                    fill
+                    priority
+                    className="object-cover"
+                />
             </div>
-
             <div className="h-[10vw] w-full absolute bottom-0 left-0 z-10 lg:hidden">
-                <Image src="/svg/mobile-wave.svg" alt="Wave Image" fill priority className="object-cover" />
+                <Image
+                    src="/svg/mobile-wave.svg"
+                    alt="Wave Image"
+                    fill
+                    priority
+                    className="object-cover"
+                />
             </div>
         </div>
     );

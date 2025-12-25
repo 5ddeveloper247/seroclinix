@@ -1,13 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import Link from "next/link";
+import { Skeleton } from "@heroui/react";
 
-export default function FaqSection({ faqs = [] }) {
+export default function FaqSection({ faqs = [], loading = false }) {
     const [openIndex, setOpenIndex] = useState(null);
 
-    // Optional: sort by display_order
+    const [showSkeleton, setShowSkeleton] = useState(true);
+
+    // Show skeleton immediately and until faqs are loaded
+    useEffect(() => {
+        if (!loading && faqs.length > 0) {
+            setShowSkeleton(false);
+        }
+    }, [loading, faqs]);
+
     const sortedFaqs = [...faqs].sort(
         (a, b) => (a.display_order ?? 0) - (b.display_order ?? 0)
     );
@@ -16,7 +25,8 @@ export default function FaqSection({ faqs = [] }) {
         setOpenIndex(openIndex === index ? null : index);
     };
 
-    if (!faqs.length) return null;
+    // Decide items to render: skeletons or real faqs
+    const itemsToRender = showSkeleton ? Array(5).fill(0) : sortedFaqs;
 
     return (
         <section className="wrapper py-15 lg:py-[6vw]">
@@ -46,30 +56,41 @@ export default function FaqSection({ faqs = [] }) {
 
             {/* FAQ Accordion */}
             <div className="space-y-5 lg:space-y-[2vw]">
-                {sortedFaqs.map((faq, index) => (
-                    <div key={faq.id} className="border-b border-gray-200 pb-4">
-                        <button
-                            onClick={() => toggleFaq(index)}
-                            className="flex justify-between items-center w-full text-left cursor-pointer"
-                        >
-                            <span
-                                className={`text-[18px] lg:text-[1.2vw] font-semibold transition-colors duration-300 ${openIndex === index ? "text-primary" : "text-gray-800"
-                                    }`}
-                            >
-                                {index + 1}. {faq.question}
-                            </span>
+                {itemsToRender.map((faq, index) => (
+                    <div key={faq?.id || index} className="border-b border-gray-200 pb-4">
+                        {showSkeleton ? (
+                            // Skeleton for FAQ item
+                            <>
+                                <Skeleton className="h-6 w-3/4 lg:w-full mb-2" />
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    onClick={() => toggleFaq(index)}
+                                    className="flex justify-between items-center w-full text-left cursor-pointer"
+                                >
+                                    <span
+                                        className={`text-[18px] lg:text-[1.2vw] font-semibold transition-colors duration-300 ${openIndex === index ? "text-primary" : "text-gray-800"
+                                            }`}
+                                    >
+                                        {index + 1}. {faq.question}
+                                    </span>
 
-                            <span className="text-[1.5rem] transition-transform duration-300">
-                                {openIndex === index ? "−" : "+"}
-                            </span>
-                        </button>
+                                    <span className="text-[1.5rem] transition-transform duration-300">
+                                        {openIndex === index ? "−" : "+"}
+                                    </span>
+                                </button>
 
-                        <div
-                            className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index ? "max-h-40 opacity-100 mt-3" : "max-h-0 opacity-0"
-                                }`}
-                        >
-                            <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                        </div>
+                                <div
+                                    className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index
+                                            ? "max-h-40 opacity-100 mt-3"
+                                            : "max-h-0 opacity-0"
+                                        }`}
+                                >
+                                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                                </div>
+                            </>
+                        )}
                     </div>
                 ))}
             </div>

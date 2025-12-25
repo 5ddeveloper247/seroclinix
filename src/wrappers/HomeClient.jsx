@@ -12,7 +12,7 @@ import FaqSection from "@/components/common/FaqSection";
 
 export default function HomeClient() {
     const dispatch = useDispatch();
-    const { data, loading, error } = useSelector(state => state.home);
+    const { data, loading } = useSelector(state => state.home);
 
     useEffect(() => {
         let mounted = true;
@@ -25,9 +25,6 @@ export default function HomeClient() {
         return () => { mounted = false; };
     }, [dispatch]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
-
     return (
         <>
             <HeroSection />
@@ -35,12 +32,13 @@ export default function HomeClient() {
             <ServicesSection />
             <WorkSection />
 
-            {/* Only render if testimonials exist */}
-            {data?.testimonials?.length > 0 && (
-                <TestimonialSection testimonials={data.testimonials} />
-            )}
+            {/* Always render TestimonialSection, pass loading */}
+            <TestimonialSection
+                testimonials={data?.testimonials || []}
+                loading={loading}
+            />
 
-            <FaqSection faqs={data?.faqs} />
+            <FaqSection faqs={data?.faqs || []} loading={loading} />
         </>
     );
 }

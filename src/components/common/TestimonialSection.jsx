@@ -1,12 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import Image from "next/image";
 import "swiper/css";
+import { Skeleton } from "@heroui/react";
 
-export default function TestimonialSection({ testimonials = [] }) {
-    if (!testimonials.length) return null;
+export default function TestimonialSection({ testimonials = [], loading = false }) {
+    // Show skeleton immediately and until testimonials load
+    const [showSkeleton, setShowSkeleton] = useState(true);
+
+    useEffect(() => {
+        if (!loading && testimonials.length > 0) {
+            setShowSkeleton(false);
+        }
+    }, [loading, testimonials]);
+
+    const slides = showSkeleton ? Array(3).fill(0) : testimonials;
 
     return (
         <section className="py-15 lg:py-[6vw]">
@@ -26,7 +37,7 @@ export default function TestimonialSection({ testimonials = [] }) {
                 modules={[Autoplay]}
                 spaceBetween={30}
                 slidesPerView={2.5}
-                loop
+                loop={slides.length > 2.5}
                 centeredSlides
                 speed={2000}
                 autoplay={{ delay: 2500, disableOnInteraction: false }}
@@ -37,40 +48,64 @@ export default function TestimonialSection({ testimonials = [] }) {
                     1280: { slidesPerView: 2.5, spaceBetween: 30, centeredSlides: true },
                 }}
             >
-                {testimonials.map((item) => (
-                    <SwiperSlide key={item.id}>
+                {slides.map((item, idx) => (
+                    <SwiperSlide key={item?.id || idx}>
                         <div className="p-10 lg:p-[2vw] flex flex-col items-center gap-5 lg:gap-[2vw] bg-second-bg rounded-[2vw]">
-                            {/* RATING */}
-                            <div className="flex items-center gap-[.3vw]">
-                                {Array.from({ length: item.rating }).map((_, i) => (
-                                    <Image
-                                        key={i}
-                                        src="/svg/star.svg"
-                                        alt="Star"
-                                        width={18}
-                                        height={18}
-                                    />
-                                ))}
-                            </div>
+                            {showSkeleton ? (
+                                <>
+                                    {/* Rating skeleton */}
+                                    <div className="flex items-center gap-[.3vw]">
+                                        {Array(4)
+                                            .fill(0)
+                                            .map((_, i) => (
+                                                <Skeleton key={i} className="h-4 w-4 rounded-full" />
+                                            ))}
+                                    </div>
 
-                            {/* REVIEW */}
-                            <i className="text-[14px] lg:text-[1vw] lg:leading-[2vw]! text-center">
-                                {item.review}
-                            </i>
+                                    {/* Review skeleton */}
+                                    <Skeleton className="h-14 w-5/6 lg:w-[80%] mx-auto" />
 
-                            {/* USER */}
-                            <div className="flex flex-col items-center">
-                                <div className="relative w-14 h-14 lg:w-[4vw] lg:h-[4vw]">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.name}
-                                        fill
-                                        className="object-cover rounded-full"
-                                    />
-                                </div>
+                                    {/* User skeleton */}
+                                    <div className="flex flex-col items-center gap-2 lg:gap-[.5vw]">
+                                        <Skeleton className="h-14 w-14 lg:h-[4vw] lg:w-[4vw] rounded-full" />
+                                        <Skeleton className="h-4 w-24" />
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    {/* RATING */}
+                                    <div className="flex items-center gap-[.3vw]">
+                                        {Array.from({ length: item.rating }).map((_, i) => (
+                                            <Image
+                                                key={i}
+                                                src="/svg/star.svg"
+                                                alt="Star"
+                                                width={18}
+                                                height={18}
+                                            />
+                                        ))}
+                                    </div>
 
-                                <h6 className="mt-[1vw]">{item.name}</h6>
-                            </div>
+                                    {/* REVIEW */}
+                                    <i className="text-[14px] lg:text-[1vw] lg:leading-[2vw]! text-center">
+                                        {item.review}
+                                    </i>
+
+                                    {/* USER */}
+                                    <div className="flex flex-col items-center">
+                                        <div className="relative w-14 h-14 lg:w-[4vw] lg:h-[4vw]">
+                                            <Image
+                                                src={item.image}
+                                                alt={item.name}
+                                                fill
+                                                className="object-cover rounded-full"
+                                            />
+                                        </div>
+
+                                        <h6 className="mt-[1vw]">{item.name}</h6>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </SwiperSlide>
                 ))}

@@ -26,8 +26,8 @@ export default function ServicesClient() {
         return () => { mounted = false; };
     }, [dispatch]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error: {error}</p>;
 
     return (
         <>
@@ -35,14 +35,12 @@ export default function ServicesClient() {
             <OurServices />
             <Packages />
             <PopularService />
-
-            {/* Only render if testimonials exist */}
-            {data?.testimonials?.length > 0 && (
-                <div className="bg-[rgba(241,241,241,0.6)]">
-                    <TestimonialSection testimonials={data.testimonials} />
-                </div>
-            )}
-
+            <div className="bg-[rgba(241,241,241,0.6)]">
+                <TestimonialSection
+                    testimonials={data?.testimonials || []}
+                    loading={loading}
+                />
+            </div>
             <FaqSection faqs={data?.faqs} />
         </>
     );

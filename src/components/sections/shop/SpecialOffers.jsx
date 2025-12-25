@@ -1,12 +1,13 @@
-import Image from "next/image"
-import Button from "@/components/common/Button"
-// import { packageData } from "@/data/data"
-import Link from "next/link"
-import { useSelector } from "react-redux"
+"use client";
+
+import Image from "next/image";
+import Button from "@/components/common/Button";
+import Link from "next/link";
+import { useSelector } from "react-redux";
+import { Skeleton } from "@heroui/react";
 
 export default function Packages() {
-
-    const { data } = useSelector(state => state.products);
+    const { data, loading } = useSelector((state) => state.products);
     const pricingPlans = data?.pricing_plans || [];
 
     const planImages = [
@@ -15,9 +16,14 @@ export default function Packages() {
         "/svg/pkg-three.svg",
     ];
 
+    // Show skeletons if loading or no plans yet
+    const skeletonArray = Array.from({ length: 3 });
 
     return (
-        <section className="h-fit w-full relative bg-center bg-cover" style={{ backgroundImage: "url('/images/package/package.jpg')" }}>
+        <section
+            className="h-fit w-full relative bg-center bg-cover"
+            style={{ backgroundImage: "url('/images/package/package.jpg')" }}
+        >
             <div className="h-[3vw] w-full hidden lg:block absolute top-0 left-0 z-10">
                 <Image
                     src="/svg/wave.svg"
@@ -48,43 +54,61 @@ export default function Packages() {
                             Special Offers
                         </h2>
                         <h2 className="text-white mb-5! lg:mb-0!">Special Offers & Bundles.</h2>
-                        <p className="text-white opacity-100">We pride ourselves on offering personalized attention tailored to meet the unique needs of each pet. Our state-of-the-art facilities are equipped with the latest technology to deliver.</p>
+                        <p className="text-white opacity-100">
+                            We pride ourselves on offering personalized attention tailored to meet the unique needs of each pet. Our state-of-the-art facilities are equipped with the latest technology to deliver.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[2vw]">
-                        {pricingPlans.map((plan, index) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[2vw] w-full">
+                        {(loading || pricingPlans.length === 0
+                            ? skeletonArray
+                            : pricingPlans
+                        ).map((plan, index) => (
                             <div
-                                key={plan.id}
+                                key={plan?.id || index}
                                 className="bg-white p-7 lg:p-[2vw] rounded-2xl lg:rounded-[1vw] w-full hover:shadow-lg transition duration-300"
                             >
-                                {/* Header */}
-                                <div className="flex flex-col gap-[.5vw] items-center justify-center text-center">
-                                    <img
-                                        src={planImages[index] || "/svg/pkg-one.svg"}
-                                        className="w-15 lg:w-[4vw]"
-                                        alt={plan.title}
-                                    />
-                                    <h6>{plan.title}</h6>
-                                    <span>{plan.heading}</span>
-                                </div>
+                                {loading || !plan ? (
+                                    <div className="flex flex-col gap-4 animate-pulse">
+                                        <Skeleton className="h-20 w-full mx-auto rounded-full" />
+                                        <Skeleton className="h-6 w-3/4 mx-auto rounded" />
+                                        <Skeleton className="h-4 w-1/2 mx-auto rounded" />
+                                        <Skeleton className="h-24 w-full rounded" />
+                                        <Skeleton className="h-6 w-1/2 mx-auto rounded" />
+                                        <Skeleton className="h-10 w-full rounded-full" />
+                                    </div>
+                                ) : (
+                                    <>
+                                        {/* Header */}
+                                        <div className="flex flex-col gap-[.5vw] items-center justify-center text-center">
+                                            <img
+                                                src={planImages[index] || "/svg/pkg-one.svg"}
+                                                className="w-15 lg:w-[4vw]"
+                                                alt={plan.title}
+                                            />
+                                            <h6>{plan.title}</h6>
+                                            <span>{plan.heading}</span>
+                                        </div>
 
-                                <hr className="my-7 opacity-10" />
+                                        <hr className="my-7 opacity-10" />
 
-                                {/* Description */}
-                                <p className="text-center opacity-100 font-medium">{plan.description}</p>
+                                        {/* Description */}
+                                        <p className="text-center opacity-100 font-medium">{plan.description}</p>
 
-                                <hr className="my-7 opacity-10" />
+                                        <hr className="my-7 opacity-10" />
 
-                                {/* Price Section */}
-                                <h3 className="flex flex-wrap items-center justify-center gap-1 leading-none text-center">
-                                    {plan.price} /
-                                    <span className="font-normal">{plan.price_suffix}</span>
-                                </h3>
+                                        {/* Price Section */}
+                                        <h3 className="flex flex-wrap items-center justify-center gap-1 leading-none text-center">
+                                            {plan.price} /
+                                            <span className="font-normal">{plan.price_suffix}</span>
+                                        </h3>
 
-                                {/* Button */}
-                                <Link href="/booking">
-                                    <Button text="Book Now" className="w-full justify-center mt-5" />
-                                </Link>
+                                        {/* Button */}
+                                        <Link href="/booking">
+                                            <Button text="Book Now" className="w-full justify-center mt-5" />
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -111,5 +135,5 @@ export default function Packages() {
                 />
             </div>
         </section>
-    )
+    );
 }

@@ -1,25 +1,33 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import ServiceHeading from "@/components/common/ServiceHeading";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { Skeleton } from "@heroui/react";
 
 export default function ServicesSection() {
     const { data, loading } = useSelector((state) => state.home);
-
     const services = data?.featured_services || [];
 
-    if (loading || services.length === 0) return null;
+    // Show skeleton immediately and until data is loaded
+    const [showSkeleton, setShowSkeleton] = useState(true);
+
+    useEffect(() => {
+        if (!loading && services.length > 0) {
+            setShowSkeleton(false);
+        }
+    }, [loading, services]);
+
+    const itemsToRender = showSkeleton ? Array(4).fill(0) : services;
 
     return (
         <section className="bg-second-bg">
             <div className="wrapper py-15 lg:py-[7vw]">
                 <div className="text-center">
-                    <h2 className="font-pat text-[40px] text-primary mb-0!">
-                        Our Services
-                    </h2>
+                    <h2 className="font-pat text-[40px] text-primary mb-0!">Our Services</h2>
                     <ServiceHeading />
                 </div>
 
@@ -39,30 +47,45 @@ export default function ServicesSection() {
                     </div>
 
                     {/* API SERVICES */}
-                    {services.map((service) => (
+                    {itemsToRender.map((service, idx) => (
                         <div
-                            key={service.id}
+                            key={service?.id || idx}
                             className="flex flex-col justify-center bg-white rounded-4xl lg:rounded-[2vw] p-5 lg:p-[2vw] gap-5 lg:gap-[1vw] min-h-75"
                         >
-                            <div className="relative h-25 w-25 lg:h-[6vw] lg:w-[6vw]">
-                                <Image
-                                    src={service.image}
-                                    className="rounded-[50px] object-cover"
-                                    fill
-                                    alt={service.heading}
-                                />
-                            </div>
+                            {showSkeleton ? (
+                                <>
+                                    <Skeleton className="h-25 w-25 lg:h-[6vw] lg:w-[6vw] rounded-full mx-auto lg:mx-0" />
+                                    <Skeleton className="h-6 w-3/4 mx-auto lg:mx-0" />
+                                    <Skeleton className="h-4 w-full mx-auto lg:mx-0" />
+                                    <Skeleton className="h-4 w-1/2 mx-auto lg:mx-0" />
+                                    <div className="flex items-center gap-2 mt-2">
+                                        <Skeleton className="h-4 w-20" />
+                                        <Skeleton className="h-4 w-4" />
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="relative h-25 w-25 lg:h-[6vw] lg:w-[6vw]">
+                                        <Image
+                                            src={service.image}
+                                            className="rounded-[50px] object-cover"
+                                            fill
+                                            alt={service.heading}
+                                        />
+                                    </div>
 
-                            <h4>{service.heading}</h4>
-                            <p className="mb-0!">{service.description}</p>
+                                    <h4>{service.heading}</h4>
+                                    <p className="mb-0!">{service.description}</p>
 
-                            <Link
-                                href={`/services/${service.id}`}
-                                className="flex items-center gap-[.8vw]"
-                            >
-                                Read more
-                                <ArrowRightIcon className="size-[1.3vw] text-primary" />
-                            </Link>
+                                    <Link
+                                        href={`/services/${service.id}`}
+                                        className="flex items-center gap-[.8vw]"
+                                    >
+                                        Read more
+                                        <ArrowRightIcon className="size-[1.3vw] text-primary" />
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     ))}
 

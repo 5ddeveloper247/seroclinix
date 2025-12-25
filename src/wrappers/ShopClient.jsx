@@ -25,8 +25,8 @@ export default function ShopClient() {
         return () => { mounted = false; };
     }, [dispatch]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error: {error}</p>;
 
     return (
         <>
@@ -34,11 +34,12 @@ export default function ShopClient() {
             <Products />
             <SpecialOffers />
             <FeaturedProducts products={data?.products} />
-            {data?.testimonials?.length > 0 && (
-                <div className="bg-[rgba(241,241,241,0.6)]">
-                    <TestimonialSection testimonials={data.testimonials} />
-                </div>
-            )}
+            <div className="bg-[rgba(241,241,241,0.6)]">
+                <TestimonialSection
+                    testimonials={data?.testimonials || []}
+                    loading={loading}
+                />
+            </div>
             <FaqSection faqs={data?.faqs} />
         </>
     )

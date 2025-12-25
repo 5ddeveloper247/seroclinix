@@ -7,20 +7,19 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-// import { popularServices } from "@/data/data";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/common/Button";
 
 import { useSelector } from "react-redux";
-
+import { Skeleton } from "@heroui/react";
 
 export default function PopularService() {
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const swiperRef = useRef(null);
 
-    const { data } = useSelector((state) => state.service);
+    const { data, loading } = useSelector((state) => state.service);
     const services = data?.services || [];
 
     const popularServices = useMemo(() => {
@@ -28,9 +27,6 @@ export default function PopularService() {
             service.tags?.some(tag => tag.name === "Expert")
         );
     }, [services]);
-
-
-
 
     // Update navigation refs after swiper mounts
     useEffect(() => {
@@ -46,6 +42,9 @@ export default function PopularService() {
         }
     }, []);
 
+    // Number of skeleton slides to show
+    const skeletonSlides = Array.from({ length: 3 });
+
     return (
         <section className="py-16 lg:py-[6vw] relative">
             <div className="wrapper">
@@ -56,7 +55,9 @@ export default function PopularService() {
                             Popular Services
                         </h2>
                         <h2>Find our most popular services</h2>
-                        <p className="lg:leading-none lg:mb-0! mt-5">Our veterinary team is committed to providing safe effective and compassionate care for pets of all ages</p>
+                        <p className="lg:leading-none lg:mb-0! mt-5">
+                            Our veterinary team is committed to providing safe effective and compassionate care for pets of all ages
+                        </p>
                     </div>
 
                     {/* Navigation Buttons */}
@@ -94,33 +95,43 @@ export default function PopularService() {
                         1024: { slidesPerView: 3 },
                     }}
                 >
-                    {popularServices.map((service) => (
-                        <SwiperSlide key={service.id}>
-                            <div className="bg-[#F6F6F6] rounded-2xl lg:rounded-[1vw] p-6 lg:p-[1.5vw] flex flex-col gap-[1.5vw] hover:shadow-lg transition duration-300">
-                                <div className="flex items-center justify-between">
-                                    <h5>{service.heading}</h5>
-                                    <div className="w-8 h-8  lg:h-[2.5vw] lg:w-[2.5vw] rounded-full flex items-center justify-center border">
-                                        <ChevronRight className="lg:size-[1.5vw]" />
+                    {loading
+                        ? skeletonSlides.map((_, i) => (
+                            <SwiperSlide key={i}>
+                                <div className="bg-[#F6F6F6] rounded-2xl lg:rounded-[1vw] p-6 lg:p-[1.5vw] flex flex-col gap-[1.5vw]">
+                                    <Skeleton className="h-6 w-1/2 mb-2 rounded mx-auto" />
+                                    <Skeleton className="h-4 w-full mb-4 rounded" />
+                                    <Skeleton className="h-20 w-full mb-4 rounded" />
+                                    <Skeleton className="h-6 w-1/2 mb-4 rounded mx-auto" />
+                                    <Skeleton className="h-10 w-full rounded-full" />
+                                </div>
+                            </SwiperSlide>
+                        ))
+                        : popularServices.map((service) => (
+                            <SwiperSlide key={service.id}>
+                                <div className="bg-[#F6F6F6] rounded-2xl lg:rounded-[1vw] p-6 lg:p-[1.5vw] flex flex-col gap-[1.5vw] hover:shadow-lg transition duration-300">
+                                    <div className="flex items-center justify-between">
+                                        <h5>{service.heading}</h5>
+                                        <div className="w-8 h-8 lg:h-[2.5vw] lg:w-[2.5vw] rounded-full flex items-center justify-center border">
+                                            <ChevronRight className="lg:size-[1.5vw]" />
+                                        </div>
+                                    </div>
+
+                                    <p className="text-gray-600">{service.description}</p>
+
+                                    <div className="flex items-center justify-between mt-10">
+                                        <img
+                                            src="/svg/emergency-kit.svg"
+                                            className="w-7 lg:w-[2.3vw]"
+                                            alt={service.title}
+                                        />
+                                        <Link href="/booking">
+                                            <Button text="Book Now" />
+                                        </Link>
                                     </div>
                                 </div>
-
-                                <p className="text-gray-600">
-                                    {service.description}
-                                </p>
-
-                                <div className="flex items-center justify-between mt-10">
-                                    <img
-                                        src="/svg/emergency-kit.svg"
-                                        className="w-7 lg:w-[2.3vw]"
-                                        alt={service.title}
-                                    />
-                                    <Link href="/booking">
-                                        <Button text="Book Now" />
-                                    </Link>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                    ))}
+                            </SwiperSlide>
+                        ))}
                 </Swiper>
 
                 <div className="flex flex-col lg:flex-row gap-5 items-center justify-between mt-10">
@@ -128,9 +139,7 @@ export default function PopularService() {
                         <h2>Not sure which service your pet needs?</h2>
                         <p className="mt-4">Talk to experts and solve your problem</p>
                     </div>
-                    <Button
-                        text="Book Emergency Care"
-                    />
+                    <Button text="Book Emergency Care" />
                 </div>
             </div>
         </section>

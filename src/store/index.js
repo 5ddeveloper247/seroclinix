@@ -6,6 +6,7 @@ import serviceReducer from "./slices/serviceSlice";
 import productsReducer from "./slices/shopSlice";
 import detailReducer from "./slices/detailSlice";
 import careerReducer from "./slices/careerSlice";
+import contactReducer from "./slices/contactSlice";
 import loaderReducer from "./slices/loaderSlice";
 
 export const store = configureStore({
@@ -17,6 +18,7 @@ export const store = configureStore({
         products: productsReducer,
         detail: detailReducer,
         career: careerReducer,
+        contact: contactReducer,
         loader: loaderReducer,
     }
 });
