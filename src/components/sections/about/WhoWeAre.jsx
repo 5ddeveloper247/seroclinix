@@ -28,6 +28,11 @@ export default function WhoWeAre() {
         { id: "community", label: "Community" },
     ];
 
+const [imageLoading, setImageLoading] = useState(true);
+useEffect(() => {
+  setImageLoading(true);
+}, [activeTab]);
+
     return (
         <>
             <section className="py-15 lg:py-[6vw] wrapper">
@@ -95,12 +100,18 @@ export default function WhoWeAre() {
 
                                 <div>
                                     <div className="relative h-[70vw] w-[90vw] lg:h-[26vw] lg:w-[36vw] rounded-4xl lg:rounded-[2vw] overflow-hidden">
+                                        
+                                          {imageLoading && (
+                                            <Skeleton className="absolute inset-0 rounded-4xl lg:rounded-[2vw]" />
+                                          )}    
                                         <Image
                                             src={activeContent.image?.value}
                                             fill
                                             className="object-cover"
                                             alt={tabs.find(t => t.id === activeTab)?.label}
                                             sizes="100vw"
+                                                onLoadingComplete={() => setImageLoading(false)}
+
                                         />
                                     </div>
                                 </div>
