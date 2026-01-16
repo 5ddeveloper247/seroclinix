@@ -10,6 +10,7 @@ export default function Portfolio() {
         <section className="py-15 lg:py-[6vw] relative">
             <div className="wrapper">
                 <div className="relative">
+                    <h2 className="text-[2vw]">Portfolio</h2>
                     {/* Swiper */}
                     <Swiper
                         spaceBetween={20}

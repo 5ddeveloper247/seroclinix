@@ -195,7 +195,7 @@ export default function AboutVet() {
 
                         {[1, 2, 3].map((_, i) => (
                             <div key={i}>
-                                <div>
+                                <div className="border-b border-[#ECECEC]">
                                     <h6 className="mb-3">Lorem Ipsum - Part time</h6>
                                     <div className="flex items-end">
                                         {Array(5)
@@ -203,7 +203,7 @@ export default function AboutVet() {
                                             .map((_, j) => (
                                                 <img
                                                     key={j}
-                                                    src="/svg/star.svg"
+                                                    src="/svg/solidstar.svg"
                                                     className="w-4 lg:w-[1vw]"
                                                     alt="star rating"
                                                 />
