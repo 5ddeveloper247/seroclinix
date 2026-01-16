@@ -53,7 +53,7 @@ export default function GalleryAbout() {
                     ))
                     : sortedGallery.map((item, index) => (
                         <SwiperSlide key={item.id}>
-                            <div className="relative h-70 lg:h-[30vw] w-full">
+                            <div className="relative h-70 lg:h-[25vw] w-full">
                                 <Image
                                     src={item.image}
                                     alt={`Gallery image ${index + 1}`}

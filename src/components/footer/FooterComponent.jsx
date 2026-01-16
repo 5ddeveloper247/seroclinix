@@ -72,10 +72,10 @@ export default function FooterComponent() {
             <div className="wrapper relative">
                 {/* Header Section */}
                 <Link href="/contact" className="flex items-start gap-[1vw]">
-                    <h1 className="border-b border-[#ffffff3c] text-[40px] lg:text-[8vw] pb-[2vw] leading-none w-fit mb-0 text-white font-light uppercase">
+                    <h1 className="border-b border-[#ffffff3c] text-[40px] lg:text-[6vw] pb-[2vw] leading-none w-fit mb-0 text-white font-light uppercase">
                         Get In <strong className="font-semibold">Touch</strong>
                     </h1>
-                    <ArrowUpRightIcon className="size-10 lg:size-[8.5vw] text-white" />
+                    <ArrowUpRightIcon className="size-10 lg:size-[6vw] text-white" />
                 </Link>
 
                 <Image
@@ -88,7 +88,7 @@ export default function FooterComponent() {
             </div>
 
             {/* Footer Grid */}
-            <div className="border-t-2 border-b-2 border-[#ffffff42] mt-6 lg:mt-[6vw] mb-6 lg:mb-[3vw]">
+            <div className="border-t-2 border-b-2 border-[#ffffff42] mt-6 lg:mt-[3vw] mb-6 lg:mb-[3vw]">
                 <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                     {/* Column 1 */}
                     <div className="pe-[3vw] py-10 lg:py-[3vw] flex flex-col items-center lg:items-start gap-4">
@@ -137,7 +137,7 @@ export default function FooterComponent() {
                                 { name: "About", href: "/about" },
                                 { name: "Shop", href: "/shop" },
                                 { name: "Career", href: "/career" },
-                                { name: "Join Us", href: "/join" },
+                                { name: "Join Us", href: "/affiliate" },
                                 { name: "Blog", href: "/blog" },
                             ].map((link) => (
                                 <li
@@ -162,9 +162,9 @@ export default function FooterComponent() {
                         </h6>
                         <ul className="space-y-4 lg:space-y-[1.5vw] mt-[2vw]">
                             {[
-                                { name: "Veterinary Services", href: "/services/veterinary" },
-                                { name: "Vet Near You", href: "/services/near-you" },
-                                { name: "Certified Vet Techs", href: "/services/techs" },
+                                { name: "Veterinary Services", href: "/services" },
+                                { name: "Vet Near You", href: "/vet" },
+                                { name: "Certified Vet Techs", href: "/certifiedVet" },
                             ].map((service) => (
                                 <li
                                     key={service.name}

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Button from "@/components/common/Button"
+import Link from "next/link"
 
 export default function WorkSection() {
     return (
@@ -56,11 +57,13 @@ export default function WorkSection() {
                         <div className="flex flex-col gap-1 lg:gap-[.7vw]">
                             <h6 className="text-primary">Reach Out</h6>
                             <p>Talk to us and see how we work together</p>
-                            <Button
-                                text="Contact Us"
-                                iconSrc="/svg/paw.svg"
-                                className="py-3 px-4 lg:py-[1.2vw]! lg:px-[2vw] w-fit"
-                            />
+                            <Link href="/contact">
+                                <Button
+                                    text="Contact Us"
+                                    iconSrc="/svg/paw.svg"
+                                    className="py-3 px-4 lg:py-[1.2vw]! lg:px-[2vw] w-fit"
+                                    />  
+                            </Link>
                         </div>
 
                         <img src="/svg/paw-light.svg" className="absolute bottom-[-6vw] right-[-6vw]" alt="" />
@@ -95,11 +98,13 @@ export default function WorkSection() {
                         Top Picks for <br />
                         Your Beloved Pets
                     </h1>
-                    <Button
-                        text="Order Your Kit"
-                        iconSrc="/svg/paw.svg"
-                        className="px-6 py-3 lg:py-[1.2vw]! lg:px-[2vw] w-fit"
-                    />
+                    <Link href="/shop">
+                        <Button
+                            text="Order Your Kit"
+                            iconSrc="/svg/paw.svg"
+                            className="px-6 py-3 lg:py-[1.2vw]! lg:px-[2vw] w-fit"
+                        />
+                    </Link>
                 </div>
 
                 <div className="h-[3vw] hidden lg:block w-full absolute bottom-0 left-0 z-10">

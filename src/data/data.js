@@ -28,25 +28,25 @@ export const aboutCards = [
         title: "24/7 Emergency Help",
         description: "Healthy eating significantly boosts overall health and well-being",
         icon: "/svg/help.svg",
-        link: "#",
+        link: "/contact",
     },
     {
         title: "Modern Equipment",
         description: "A balanced diet includes a variety of foods from all food groups",
         icon: "/svg/equipment.svg",
-        link: "#",
+        link: "/shop",
     },
     {
         title: "Certified Veterinars",
         description: "Complete Maintenance Services for Comfort and Peace of Mind",
         icon: "/svg/vet.svg",
-        link: "#",
+        link: "/certifiedVet",
     },
     {
         title: "Pet-Friendly Atmosphere",
         description: "Trusted Handyman Help for All Those Small but Important Home Tasks",
         icon: "/svg/pet.svg",
-        link: "#",
+        link: "/vet",
     },
 ];
 
