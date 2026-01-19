@@ -29,7 +29,7 @@ const navigation = [
         name: "Join Us", href: null, dropdown: [
             { label: "Join Our Affiliate", href: "/affiliate", image: "/images/banners/affiliate.jpg" },
             { label: "Investors", href: "/investor", image: "/images/banners/investor.jpg" },
-            { label: "Certified Vet Techs", href: "/certifiedVet", image: "/images/banners/vet.jpg" },
+            { label: "Become a partner", href: "/partners", image: "/images/banners/vet.jpg" },
         ]
     },
 ];
