@@ -48,10 +48,10 @@ export default function WhyInvest() {
                             <h4>{service.title}</h4>
                             <p className="mb-0!">{service.description}</p>
 
-                            <Link href={service.link} className="flex items-center gap-[.8vw]">
+                            {/* <Link href={service.link} className="flex items-center gap-[.8vw]">
                                 Read more
                                 <ArrowRightIcon className="size-[1.3vw] text-primary" />
-                            </Link>
+                            </Link> */}
                         </div>
                     ))}
 

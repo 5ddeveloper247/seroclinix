@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import Button from "@/components/common/Button";
 import { useSelector } from "react-redux";
 import { Skeleton } from "@heroui/react";
 
@@ -23,12 +25,14 @@ export default function OurMembers() {
                         Dedicated to delivering exceptional care & services.
                     </h2>
                     <p>
-                        We pride ourselves on offering personalized attention tailored to meet the unique needs of each pet.
-                        Our state-of-the-art facilities are equipped with the latest technology to deliver.
+                        We pride ourselves on offering personalized attention tailored to
+                        meet the unique needs of each pet. Our state-of-the-art facilities
+                        are equipped with the latest technology to deliver.
                     </p>
                 </div>
 
                 {/* ===== DYNAMIC GRID ===== */}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {(showSkeleton ? skeletonItems : members).map((member, index) => (
                         <div
@@ -66,26 +70,61 @@ export default function OurMembers() {
 
                             {/* SOCIAL ICONS */}
                             <div className="flex items-center justify-center gap-4 lg:gap-[1vw] mt-5">
-                                {showSkeleton
-                                    ? Array(4)
-                                          .fill(0)
-                                          .map((_, i) => (
-                                              <Skeleton
-                                                  key={i}
-                                                  className="h-6 w-6 lg:w-[1.2vw] rounded-full"
-                                              />
-                                          ))
-                                    : (
-                                        <>
-                                            <img src="/svg/facebook.svg" className="w-6 lg:w-[1.2vw]" alt="Facebook" />
-                                            <img src="/svg/insta.svg" className="w-6 lg:w-[1.2vw]" alt="Instagram" />
-                                            <img src="/svg/tiktok.svg" className="w-6 lg:w-[1.2vw]" alt="TikTok" />
-                                            <img src="/svg/youtube.svg" className="w-6 lg:w-[1.2vw]" alt="YouTube" />
-                                        </>
-                                    )}
+                                {showSkeleton ? (
+                                    Array(4)
+                                        .fill(0)
+                                        .map((_, i) => (
+                                            <Skeleton
+                                                key={i}
+                                                className="h-6 w-6 lg:w-[1.2vw] rounded-full"
+                                            />
+                                        ))
+                                ) : (
+                                    <>
+                                        <a href={member.facebook_url} target="_blank">
+                                            <img
+                                                src="/svg/facebook.svg"
+                                                className="w-6 lg:w-[1.2vw] cursor-pointer"
+                                                alt="Facebook"
+                                            />
+                                        </a>
+
+                                        <a href={member.instagram_url} target="_blank">
+                                            <img
+                                                src="/svg/insta.svg"
+                                                className="w-6 lg:w-[1.2vw] cursor-pointer"
+                                                alt="Instagram"
+                                            />
+                                        </a>
+
+                                        <a href={member.tiktok_url} target="_blank">
+                                            <img
+                                                src="/svg/tiktok.svg"
+                                                className="w-6 lg:w-[1.2vw] cursor-pointer"
+                                                alt="TikTok"
+                                            />
+                                        </a>
+
+                                        <a href={member.youtube_url} target="_blank">
+                                            <img
+                                                src="/svg/youtube.svg"
+                                                className="w-6 lg:w-[1.2vw] cursor-pointer"
+                                                alt="YouTube"
+                                            />
+                                        </a>
+                                    </>
+                                )}
                             </div>
                         </div>
                     ))}
+
+                    <div className="flex justify-center col-span-full">
+                        <Button
+                            text="View Our Team"
+                            iconSrc="/svg/paw.svg"
+                            className="py-4 lg:py-[1.2vw]! w-full lg:w-[15%] justify-center"
+                        />
+                    </div>
                 </div>
             </div>
         </section>
