@@ -139,7 +139,9 @@ export default function PopularService() {
                         <h2>Not sure which service your pet needs?</h2>
                         <p className="mt-4">Talk to experts and solve your problem</p>
                     </div>
-                    <Button text="Book Emergency Care" />
+                    <Link href="/contact">
+                        <Button text="Book Emergency Care" />
+                    </Link>
                 </div>
             </div>
         </section>

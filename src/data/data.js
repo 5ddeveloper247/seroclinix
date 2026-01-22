@@ -629,26 +629,28 @@ export const featuredVets = [
 
 // ====================CERTIFIED_VET_DATA==================//
 export const certifiedVetData = [
-    {
-        name: "Skill",
-        options: [
-            { label: "Surgery", value: "surgery" },
-            { label: "Rehabilitation", value: "rehab" },
-            { label: "Animal Behavior", value: "behavior" },
-            { label: "Vaccination", value: "vaccination" },
-        ],
-        defaultText: "Select Skill",
-    },
-    {
-        name: "Location",
-        options: [
-            { label: "USA", value: "usa" },
-            { label: "Canada", value: "canada" },
-            { label: "UK", value: "uk" },
-            { label: "UAE", value: "uae" },
-        ],
-        defaultText: "Select Location",
-    },
+  {
+    name: "Skill",
+    label: "Skill",
+    options: [
+      { label: "Surgery", value: "surgery" },
+      { label: "Rehabilitation", value: "rehab" },
+      { label: "Animal Behavior", value: "behavior" },
+      { label: "Vaccination", value: "vaccination" },
+    ],
+    defaultText: "Select Skill",
+  },
+  {
+    name: "Location",
+    label: "Location",
+    options: [
+      { label: "USA", value: "usa" },
+      { label: "Canada", value: "canada" },
+      { label: "UK", value: "uk" },
+      { label: "UAE", value: "uae" },
+    ],
+    defaultText: "Select Location",
+  },
 ];
 
 // ===============SERVICE_DAT================//

@@ -91,7 +91,7 @@ export default function FeaturedVets() {
                             className="bg-transparent justify-center border border-primary! text-primary! w-full text-nowrap"
                         />
                         <Button
-                            text="join the agency"
+                            text="Join the Agency"
                             className="w-full justify-center text-nowrap"
                         />
                     </div>

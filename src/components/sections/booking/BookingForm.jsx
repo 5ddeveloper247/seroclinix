@@ -141,7 +141,7 @@ export default function BookingForm() {
                             {/* Submit */}
                             <div className="w-full flex items-center gap-3">
                                 <Button
-                                    text="Send Message"
+                                    text="Confirm Booking"
                                     type="submit"
                                     iconSrc="/svg/paw.svg"
                                     className="py-4 lg:py-[1vw]!"
