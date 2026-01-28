@@ -228,11 +228,11 @@ export default function FooterComponent() {
                         Careers
                     </Link>
                     <span>|</span>
-                    <Link href="/legal" className="hover:text-gray-300 text-gray-100 font-thin">
+                    <Link href="#" className="hover:text-gray-300 text-gray-100 font-thin">
                         Legal Disclaimers
                     </Link>
                     <span>|</span>
-                    <Link href="/privacy" className="hover:text-gray-300 text-gray-100 font-thin">
+                    <Link href="#" className="hover:text-gray-300 text-gray-100 font-thin">
                         Privacy Policy
                     </Link>
                 </div>

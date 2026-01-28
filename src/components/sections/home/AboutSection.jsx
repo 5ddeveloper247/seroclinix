@@ -8,7 +8,6 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { aboutCards, featuresList } from "@/data/data.js";
 import { Skeleton } from "@heroui/react";
 
-
 export default function AboutSection() {
   const { data, loading } = useSelector((state) => state.home);
 
@@ -51,14 +50,19 @@ export default function AboutSection() {
 
         {/* Skeleton for About Cards */}
         <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 my-15">
-          {Array(4).fill(0).map((_, idx) => (
-            <div key={idx} className="flex flex-col items-center lg:items-start gap-4 lg:gap-[2vw] pt-9 lg:px-[3vw]">
-              <Skeleton className="h-10 w-10 lg:h-[4vw] lg:w-[4vw] rounded-full" />
-              <Skeleton className="h-6 w-3/4" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-1/2" />
-            </div>
-          ))}
+          {Array(4)
+            .fill(0)
+            .map((_, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center lg:items-start gap-4 lg:gap-[2vw] pt-9 lg:px-[3vw]"
+              >
+                <Skeleton className="h-10 w-10 lg:h-[4vw] lg:w-[4vw] rounded-full" />
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-1/2" />
+              </div>
+            ))}
         </div>
       </section>
     );
@@ -83,13 +87,9 @@ export default function AboutSection() {
             {about.title?.value}
           </h2>
 
-          <h2 className="text-heading mb-5!">
-            {about.heading?.value}
-          </h2>
+          <h2 className="text-heading mb-5!">{about.heading?.value}</h2>
 
-          <p className="opacity-50">
-            {about.description?.value}
-          </p>
+          <p className="opacity-50">{about.description?.value}</p>
 
           <ul className="my-5 lg:mt-[1vw] grid grid-cols-2 gap-y-5 lg:gap-y-[1vw]">
             {featuresList.map((item, idx) => (
@@ -109,12 +109,13 @@ export default function AboutSection() {
           </ul>
 
           <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-5 lg:gap-[2vw] mt-5 lg:mt-[3vw]">
-            <Button
-              text="Read More"
-              iconSrc="/svg/paw.svg"
-              className="py-4 lg:py-[1.5vw]! w-full lg:w-[40%] justify-center"
-            />
-
+            <a href="/about" className="contents">
+              <Button
+                text="Read More"
+                iconSrc="/svg/paw.svg"
+                className="py-4 lg:py-[1.5vw]! w-full lg:w-[40%] justify-center"
+              />
+            </a>
             <div className="w-full flex items-center gap-3 lg:gap-[1vw]">
               <div className="h-14 w-14 lg:h-[5vw] lg:w-[5vw] relative">
                 <Image src="/svg/phone.svg" alt="Phone icon" fill />
@@ -145,7 +146,10 @@ export default function AboutSection() {
               <p className="mb-0!">{card.description}</p>
             </div>
 
-            <Link href={card.link} className="flex items-center gap-1 lg:gap-[.8vw]">
+            <Link
+              href={card.link}
+              className="flex items-center gap-1 lg:gap-[.8vw]"
+            >
               Read more
               <ArrowRightIcon className="size-6 lg:size-[1.3vw] text-primary" />
             </Link>

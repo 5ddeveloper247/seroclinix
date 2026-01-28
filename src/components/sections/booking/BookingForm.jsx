@@ -16,7 +16,7 @@ export default function BookingForm() {
         <section className="wrapper">
             {/* Heading */}
             <div className="my-10 lg:my-[3vw]">
-                <h2 className="font-pat leading-none mb-10 lg:mb-0! text-primary">Reach Out</h2>
+                <h2 className="font-pat leading-none mb-10 lg:mb-0! text-primary">Appointment</h2>
                 <h2>Book Your Appointment</h2>
                 <p>
                     Lorem ipsum dolor sit amet consectetur. Maecenas posuere fusce neque

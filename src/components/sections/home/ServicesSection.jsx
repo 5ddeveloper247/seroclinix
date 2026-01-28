@@ -78,7 +78,8 @@ export default function ServicesSection() {
                                     <p className="mb-0!">{service.description}</p>
 
                                     <Link
-                                        href={`/services/${service.id}`}
+                                        // href={`/services/${service.id}`}
+                                        href={`/services`}
                                         className="flex items-center gap-[.8vw]"
                                     >
                                         Read more
