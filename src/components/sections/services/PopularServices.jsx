@@ -22,11 +22,8 @@ export default function PopularService() {
     const { data, loading } = useSelector((state) => state.service);
     const services = data?.services || [];
 
-    const popularServices = useMemo(() => {
-        return services.filter((service) =>
-            service.tags?.some(tag => tag.name === "Expert")
-        );
-    }, [services]);
+    const popularServices = services;
+
 
     // Update navigation refs after swiper mounts
     useEffect(() => {

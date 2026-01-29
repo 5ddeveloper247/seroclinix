@@ -80,6 +80,16 @@ export default function FeaturedProducts({ products = [] }) {
                                     alt={product.name}
                                 />
                             </div>
+                            <div className="flex flex-col items-center gap-3 mt-4">
+                                <div className="flex items-center gap-1">
+                                    <img src="/svg/star.svg" alt="" />
+                                    <img src="/svg/star.svg" alt="" />
+                                    <img src="/svg/star.svg" alt="" />
+                                    <img src="/svg/star.svg" alt="" />
+                                </div>
+                                <h6 className="mb-0! leading-none">{product.name}</h6>
+                                <span>${product.pricing.final_price}</span>
+                            </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>

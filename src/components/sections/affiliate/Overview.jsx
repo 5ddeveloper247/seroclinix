@@ -9,7 +9,7 @@ export default function Overview() {
                         <h2 className="font-pat text-primary mb-4! lg:mb-0! leading-none">
                             Overview
                         </h2>
-                        <h2>Why join the affiliate program?</h2>
+                        <h2 className='text-nowrap'>Why join the affiliate program?</h2>
                         <p>Our veterinary team is committed to providing safe effective and
                             compassionate care for pets of all ages</p>
                     </div>

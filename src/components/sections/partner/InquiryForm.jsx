@@ -55,7 +55,7 @@ export default function InquiryForm() {
                                 type="text"
                                 required
                                 placeholder="Enter your full name"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -69,7 +69,7 @@ export default function InquiryForm() {
                                 type="text"
                                 required
                                 placeholder="Enter your company name"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -82,7 +82,7 @@ export default function InquiryForm() {
                                 type="tel"
                                 required
                                 placeholder="+1 (555) 555-5555"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -95,7 +95,7 @@ export default function InquiryForm() {
                                 type="email"
                                 required
                                 placeholder="you@example.com"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -125,7 +125,7 @@ export default function InquiryForm() {
                                 type="text"
                                 required
                                 placeholder="Enter your website or social media link"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 

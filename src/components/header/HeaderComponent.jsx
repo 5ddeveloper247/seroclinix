@@ -8,7 +8,7 @@ import {
     DisclosureButton,
     DisclosurePanel,
 } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, BellIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
@@ -139,7 +139,7 @@ export default function HeaderComponent() {
                 {/* Right Icons */}
                 <div className="flex items-center gap-2 text-gray-300">
                     <button className="rounded-full p-2 lg:p-[.6vw] border border-[#00000011]">
-                        <BellIcon className="h-5 w-5 lg:h-[1.4vw] lg:w-[1.4vw] text-footer" />
+                        <ShoppingCartIcon className="h-5 w-5 lg:h-[1.4vw] lg:w-[1.4vw] text-footer" />
                     </button>
 
                     <Link href="/contact">

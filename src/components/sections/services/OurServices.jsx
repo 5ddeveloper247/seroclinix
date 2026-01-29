@@ -139,7 +139,7 @@ const SideBar = ({
       </ul>
     </Section>
 
-    <Section
+    {/* <Section
       title="Age"
       open={openSections.age}
       toggle={() => toggleSection("age")}
@@ -161,7 +161,7 @@ const SideBar = ({
           </li>
         ))}
       </ul>
-    </Section>
+    </Section> */}
 
 
     <Button text="Reset Filters"

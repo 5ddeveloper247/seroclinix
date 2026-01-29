@@ -90,12 +90,12 @@ export default function Packages() {
                                             <span>{plan.heading}</span>
                                         </div>
 
-                                        <hr className="my-7 opacity-10" />
+                                        <hr className="my-7 opacity-10 bg-black" />
 
                                         {/* Description */}
                                         <p className="text-center opacity-100 font-medium">{plan.description}</p>
 
-                                        <hr className="my-7 opacity-10" />
+                                        <hr className="my-7 opacity-10 bg-black" />
 
                                         {/* Price Section */}
                                         <h3 className="flex flex-wrap items-center justify-center gap-1 leading-none text-center">
