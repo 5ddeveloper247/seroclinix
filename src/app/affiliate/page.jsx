@@ -2,7 +2,7 @@ import HeroSection from "@/components/common/HeroSection";
 import Overview from "@/components/sections/affiliate/Overview";
 import WorkSection from "@/components/sections/affiliate/WorkSection";
 import ContactUs from "@/components/sections/affiliate/ContactUs";
-import FaqSection from "@/components/common/FaqSection";
+import FaqSection from "@/components/sections/affiliate/FaqSection";
 
 export default function Affiliate () {
     return (

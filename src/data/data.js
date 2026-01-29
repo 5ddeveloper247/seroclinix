@@ -56,6 +56,45 @@ export const featuresList = [
     "Certified experts",
     "Affordable prices",
 ];
+export const affiliatefeaturesList = [
+    "High Commissions",
+    "Dedicated support",
+    "Easy marketing",
+    "Growth incentives",
+];
+
+// ===================HOME_ABOUT-SECTION================ //
+export const investorCards = [
+    {
+        title: "Lorem Ipsum",
+        description: "Healthy eating significantly boosts overall health and well-being",
+        icon: "/svg/technology.svg",
+    },
+    {
+        title: "Lorem Ipsum",
+        description: "A balanced diet includes a variety of foods from all food groups",
+        icon: "/svg/paw-new.svg",
+    },
+    {
+        title: "Lorem Ipsum",
+        description: "Complete Maintenance Services for Comfort and Peace of Mind",
+        icon: "/svg/distribution.svg",
+    },
+    {
+        title: "Lorem Ipsum",
+        description: "Trusted Handyman Help for All Those Small but Important Home Tasks",
+        icon: "/svg/service.svg",
+        link: "/vet",
+    },
+];
+
+export const investorfeaturesList = [
+    "Revenue Mode",
+    "expansion potential",
+    "Scale opportunity",
+    "No sensitive data",
+];
+
 
 
 
@@ -629,28 +668,28 @@ export const featuredVets = [
 
 // ====================CERTIFIED_VET_DATA==================//
 export const certifiedVetData = [
-  {
-    name: "Skill",
-    label: "Skill",
-    options: [
-      { label: "Surgery", value: "surgery" },
-      { label: "Rehabilitation", value: "rehab" },
-      { label: "Animal Behavior", value: "behavior" },
-      { label: "Vaccination", value: "vaccination" },
-    ],
-    defaultText: "Select Skill",
-  },
-  {
-    name: "Location",
-    label: "Location",
-    options: [
-      { label: "USA", value: "usa" },
-      { label: "Canada", value: "canada" },
-      { label: "UK", value: "uk" },
-      { label: "UAE", value: "uae" },
-    ],
-    defaultText: "Select Location",
-  },
+    {
+        name: "Skill",
+        label: "Skill",
+        options: [
+            { label: "Surgery", value: "surgery" },
+            { label: "Rehabilitation", value: "rehab" },
+            { label: "Animal Behavior", value: "behavior" },
+            { label: "Vaccination", value: "vaccination" },
+        ],
+        defaultText: "Select Skill",
+    },
+    {
+        name: "Location",
+        label: "Location",
+        options: [
+            { label: "USA", value: "usa" },
+            { label: "Canada", value: "canada" },
+            { label: "UK", value: "uk" },
+            { label: "UAE", value: "uae" },
+        ],
+        defaultText: "Select Location",
+    },
 ];
 
 // ===============SERVICE_DAT================//
@@ -1184,29 +1223,88 @@ export const investData = [
         id: 1,
         title: "Trust-building",
         description: "Complete assessment ensuring overall pet health and early detection",
-        image: "/images/home/service-two.jpg",
+        image: "/images/investor/srvc1.png",
         link: "#",
     },
     {
         id: 2,
         title: "Credibility",
         description: "Advanced surgeries performed with precision, safety, and compassionate care",
-        image: "/images/home/service-two.jpg",
+        image: "/images/investor/srvc2.jpg",
         link: "#",
     },
     {
         id: 3,
         title: "Existing partners",
         description: "Customized diet plans to support optimal health and longevity",
-        image: "/images/home/service-two.jpg",
+        image: "/images/investor/srvc3.jpg",
         link: "#",
     },
     {
         id: 4,
         title: "Industry positioning ",
         description: "Effective methods to improve obedience, social skills, and behavior",
-        image: "/images/home/service-two.jpg",
+        image: "/images/investor/srvc4.png",
         link: "#",
     },
 ]
 
+// ================WHY Partner===================== //
+
+export const partnerData = [
+    {
+        id: 1,
+        title: "Exposure",
+        description: "Lorem ipsum dolor sit amet consectetur. Nulla cum lorem sit sodales.",
+        image: "/images/home/service-two.jpg",
+        link: "#",
+    },
+    {
+        id: 2,
+        title: "Shared revenue",
+        description: "Lorem ipsum dolor sit amet consectetur. Nulla cum lorem sit sodales.",
+        image: "/images/home/service-two.jpg",
+        link: "#",
+    },
+    {
+        id: 3,
+        title: "Co-branding",
+        description: "Lorem ipsum dolor sit amet consectetur. Nulla cum lorem sit sodales.",
+        image: "/images/home/service-two.jpg",
+        link: "#",
+    },
+    {
+        id: 4,
+        title: "Training",
+        description: "Lorem ipsum dolor sit amet consectetur. Nulla cum lorem sit sodales.",
+        image: "/images/home/service-two.jpg",
+        link: "#",
+    },
+];
+
+
+
+
+// ===================partner SECTION================ //
+export const partnerCards = [
+    {
+        title: "Technology Partner ",
+        description: "Lorem ipsum dolor sit amet consectetur. Lectus mauris.",
+        icon: "/svg/technology.svg",
+    },
+    {
+        title: "Strategic Partner ",
+        description: "Lorem ipsum dolor sit amet consectetur. Lectus mauris.",
+        icon: "/svg/paw-new.svg",
+    },
+    {
+        title: "Distribution Partner",
+        description: "Lorem ipsum dolor sit amet consectetur. Lectus mauris.",
+        icon: "/svg/distribution.svg",
+    },
+    {
+        title: "Service Delivery Partner",
+        description: "Lorem ipsum dolor sit amet consectetur. Lectus mauris.",
+        icon: "/svg/service.svg",
+    },
+];

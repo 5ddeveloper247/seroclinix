@@ -11,7 +11,6 @@ export const fetchContactPage = createAsyncThunk(
                 "/api/v1/sero-clinix/inquiries",
                 formData
             );
-
             toast.success("Message sent successfully!");
             return data;
         } catch (error) {

@@ -8,13 +8,14 @@ import { featuresList } from "@/data/data.js";
 
 export default function InquiryForm() {
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
-    return (
-      <section className="py-10 lg:py-[8vw]">
-        <div className="wrapper grid grid-cols-1 md:grid-cols-2 gap-[8vw]">
+  return (
+    <section className="py-10 lg:py-[8vw]">
+      <div className="wrapper grid grid-cols-1 md:grid-cols-2 gap-[8vw]">
+        <div className="flex flex-col justify-between">
           <div className="flex flex-col justify-center">
             <h2 className="font-pat sub-title text-[40px] lg:text-[2.4vw] leading-none text-primary mb-3!">
               Inquiry Form
@@ -29,123 +30,131 @@ export default function InquiryForm() {
               referrals
             </p>
           </div>
-
-          <div className="bg-[linear-gradient(171.97deg,rgba(236,234,236,0.396)_0%,#160C1E_100%)] text-white bg-[#000000B2] p-7 lg:p-[2vw] lg:rounded-[1vw]">
-            <h6 className="mb-5!">Start your journey with filling this form</h6>
-
-            <form
-              onSubmit={handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
-            >
-              {/* First Name */}
-              <div>
-                <label className="block mb-2 font-medium">
-                  First Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter your full name"
-                  className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              {/* Business/Company Name */}
-              <div>
-                <label className="block mb-2 font-medium">
-                  Business / Company Name{" "}
-                  <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Enter your company name"
-                  className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              {/* Phone Number */}
-              <div>
-                <label className="block mb-2 font-medium">
-                  Phone Number <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="tel"
-                  required
-                  placeholder="+1 (555) 555-5555"
-                  className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="block mb-2 font-medium">
-                  Email <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="you@example.com"
-                  className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
-                />
-              </div>
-
-              {/* Website / Social Media */}
-              <div>
-                <label className="block mb-2 font-medium">
-                  Investment Interest Range <span className="text-red-500">*</span>
-                </label>
-                <select
-                  required
-                  className="w-full bg-white text-black text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
-                >
-                  <option value="">Select Investment Range</option>
-                  <option value="sponsorship">$50k</option>
-                  <option value="franchise">$100k+</option>
-                  <option value="collaboration">$120k</option>
-                  <option value="affiliate">$400k</option>
-                </select>
-              </div>
-
-              {/* Preferred Modal */}
-              <div>
-                <label className="block mb-2 font-medium">
-                  Interest Type <span className="text-red-500">*</span>
-                </label>
-                <select
-                  required
-                  className="w-full bg-white text-black text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
-                >
-                  <option value="">Select Interest Type</option>
-                  <option value="collaboration">Collaboration</option>
-                  <option value="franchise">Franchise</option>
-                  <option value="sponsorship">Sponsorship</option>
-                  <option value="affiliate">Affiliate</option>
-                </select>
-              </div>
-
-              {/* Why Join */}
-              <div className="md:col-span-2">
-                <label className="block mb-2 font-medium">
-                  Message <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  rows="1"
-                  required
-                  placeholder="Tell us why you'd like to join"
-                  className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none resize-none"
-                ></textarea>
-              </div>
-            </form>
-
-            {/* Submit Button */}
-            <div className="mt-5">
-              <Button text="Submit" className="w-full justify-center" />
-            </div>
-          </div>
+          <Image
+            src="/svg/paw-light.svg"
+            className="w-60 lg:w-[12vw] rotate-[90deg]"
+            width={100}
+            height={100}
+            alt="Dog Image"
+          />{" "}
         </div>
 
-        {/* <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 my-15! lg:mt-[5vw]!">
+        <div className="bg-[linear-gradient(171.97deg,rgba(236,234,236,0.396)_0%,#160C1E_100%)] text-white bg-[#000000B2] p-7 lg:p-[2vw] lg:rounded-[1vw]">
+          <h6 className="mb-5!">Start your journey with filling this form</h6>
+
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            {/* First Name */}
+            <div>
+              <label className="block mb-2 font-medium">
+                First Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="Enter your full name"
+                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            {/* Business/Company Name */}
+            <div>
+              <label className="block mb-2 font-medium">
+                Business / Company Name{" "}
+                <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="Enter your company name"
+                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            {/* Phone Number */}
+            <div>
+              <label className="block mb-2 font-medium">
+                Phone Number <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="tel"
+                required
+                placeholder="+1 (555) 555-5555"
+                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block mb-2 font-medium">
+                Email <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                required
+                placeholder="you@example.com"
+                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+              />
+            </div>
+
+            {/* Website / Social Media */}
+            <div>
+              <label className="block mb-2 font-medium">
+                Investment Interest Range <span className="text-red-500">*</span>
+              </label>
+              <select
+                required
+                className="w-full bg-white text-black text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+              >
+                <option value="">Select Investment Range</option>
+                <option value="sponsorship">$50k</option>
+                <option value="franchise">$100k+</option>
+                <option value="collaboration">$120k</option>
+                <option value="affiliate">$400k</option>
+              </select>
+            </div>
+
+            {/* Preferred Modal */}
+            <div>
+              <label className="block mb-2 font-medium">
+                Interest Type <span className="text-red-500">*</span>
+              </label>
+              <select
+                required
+                className="w-full bg-white text-black text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+              >
+                <option value="">Select Interest Type</option>
+                <option value="collaboration">Collaboration</option>
+                <option value="franchise">Franchise</option>
+                <option value="sponsorship">Sponsorship</option>
+                <option value="affiliate">Affiliate</option>
+              </select>
+            </div>
+
+            {/* Why Join */}
+            <div className="md:col-span-2">
+              <label className="block mb-2 font-medium">
+                Message <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                rows="1"
+                required
+                placeholder="Tell us why you'd like to join"
+                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none resize-none"
+              ></textarea>
+            </div>
+          </form>
+
+          {/* Submit Button */}
+          <div className="mt-5">
+            <Button text="Submit" className="w-full justify-center" />
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 my-15! lg:mt-[5vw]!">
                 {aboutCards.map((card, idx) => (
                     <div
                         key={idx}
@@ -167,6 +176,6 @@ export default function InquiryForm() {
                     </div>
                 ))}
             </div> */}
-      </section>
-    );
+    </section>
+  );
 }

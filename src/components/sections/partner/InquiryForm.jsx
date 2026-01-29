@@ -15,26 +15,29 @@ export default function InquiryForm() {
     return (
         <section className="py-10 lg:py-[8vw]">
             <div className="wrapper grid grid-cols-1 md:grid-cols-2 gap-[8vw]">
-            <div className="flex flex-col justify-between">
-                <div className="flex flex-col justify-center">
-                    <h2 className="font-pat sub-title text-[40px] lg:text-[2.4vw] leading-none text-primary mb-3!">
-                        Inquiry Form
-                    </h2>
-                    <h2 className="text-heading mb-5!">
-                        Fill the form and join us now
-                    </h2>
+                <div className="flex flex-col justify-between">
+                    <div className="flex flex-col justify-center">
+                        <h2 className="font-pat sub-title text-[40px] lg:text-[2.4vw] leading-none text-primary mb-3!">
+                            Inquiry Form
+                        </h2>
+                        <h2 className="text-heading mb-5!">
+                            Fill the form and join us now
+                        </h2>
 
-                    <p className="opacity-50">
-                        Join the Seroclinix Affiliate Program and start earning commissions for every first purchase and trial made by your referrals
-                    </p>
+                        <p className="opacity-50">
+                            Join the Seroclinix Affiliate Program and start earning
+                            commissions for every first purchase and trial made by your
+                            referrals
+                        </p>
+                    </div>
+                    <Image
+                        src="/svg/paw-light.svg"
+                        className="w-60 lg:w-[12vw] rotate-[90deg]"
+                        width={100}
+                        height={100}
+                        alt="Dog Image"
+                    />{" "}
                 </div>
-                        <Image
-                            src="/svg/paw-light.svg"
-                            className="w-60 lg:w-[12vw] rotate-[90deg]"
-                            width={100}
-                            height={100}
-                            alt="Dog Image"
-                        />                </div>
 
                 <div className="bg-[linear-gradient(171.97deg,rgba(236,234,236,0.396)_0%,#160C1E_100%)] text-white bg-[#000000B2] p-7 lg:p-[2vw] lg:rounded-[1vw]">
                     <h6 className="mb-5!">Start your journey with filling this form</h6>
@@ -59,7 +62,8 @@ export default function InquiryForm() {
                         {/* Business/Company Name */}
                         <div>
                             <label className="block mb-2 font-medium">
-                                Business / Company Name <span className="text-red-500">*</span>
+                                Business / Company Name{" "}
+                                <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
@@ -95,6 +99,23 @@ export default function InquiryForm() {
                             />
                         </div>
 
+                        {/* Preferred Modal */}
+                        <div>
+                            <label className="block mb-2 font-medium">
+                                Partnership Type <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                required
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                            >
+                                <option value="">Select partnership type</option>
+                                <option value="Strategic">Strategic</option>
+                                <option value="franchise">Franchise</option>
+                                <option value="sponsorship">Sponsorship</option>
+                                <option value="affiliate">Affiliate</option>
+                            </select>
+                        </div>
+
                         {/* Website / Social Media */}
                         <div>
                             <label className="block mb-2 font-medium">
@@ -108,48 +129,26 @@ export default function InquiryForm() {
                             />
                         </div>
 
-                        {/* Preferred Modal */}
-                        <div>
-                            <label className="block mb-2 font-medium">
-                                Preferred Model <span className="text-red-500">*</span>
-                            </label>
-                            <select
-                                required
-                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
-                            >
-                                <option value="">Select preferred model</option>
-                                <option value="collaboration">Collaboration</option>
-                                <option value="franchise">Franchise</option>
-                                <option value="sponsorship">Sponsorship</option>
-                                <option value="affiliate">Affiliate</option>
-                            </select>
-                        </div>
-
                         {/* Why Join */}
                         <div className="md:col-span-2">
                             <label className="block mb-2 font-medium">
-                                Why Join? <span className="text-red-500">*</span>
+                                Reason far Partnership <span className="text-red-500">*</span>
                             </label>
                             <textarea
                                 rows="1"
                                 required
-                                placeholder="Tell us why you'd like to join"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none resize-none"
+                                placeholder="Message for us"
+                                className="w-full bg-white rounded-full text-black border border-white focus:border focus:border-primary focus:outline-none resize-none"
                             ></textarea>
                         </div>
                     </form>
 
                     {/* Submit Button */}
                     <div className="mt-5">
-                        <Button
-                            text="Submit"
-                            className="w-full justify-center"
-                        />
+                        <Button text="Submit" className="w-full justify-center" />
                     </div>
                 </div>
-
             </div>
-
 
             {/* <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 my-15! lg:mt-[5vw]!">
                 {aboutCards.map((card, idx) => (

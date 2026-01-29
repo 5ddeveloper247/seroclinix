@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ArticleSection from "@/components/sections/blog/ArticleSection"
 import HeroSection from "@/components/common/HeroSection"
 import LatestPost from "@/components/sections/blog/LatestPost"
+import FaqSection from "@/components/common/FaqSection";
 
 export default function BlogClient() {
 
@@ -37,6 +38,7 @@ export default function BlogClient() {
             />
             <LatestPost />
             <ArticleSection />
+            <FaqSection faqs={data?.faqs || []} loading={loading} />
         </>
     )
 }

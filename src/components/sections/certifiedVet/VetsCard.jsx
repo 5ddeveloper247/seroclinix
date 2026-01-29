@@ -80,7 +80,9 @@ export default function VetsCard() {
                         </div>
 
                         <div className="hidden lg:flex flex-col gap-[.6vw]">
+                            <Link href="/booking">
                             <Button text="Book Appointment" className="w-full justify-center" />
+                            </Link>
                             <Link href="/vetProfile">
                                 <Button
                                     text="View Profile"

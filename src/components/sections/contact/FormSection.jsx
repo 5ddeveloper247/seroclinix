@@ -36,7 +36,7 @@ export default function FormSection() {
     // Fetch contact info from API
     useEffect(() => {
         axios
-        const API_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/sero-clinix/website-settings`;
+        const API_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}api/v1/sero-clinix/website-settings`;
 
         axios.get(API_URL)
             .then((res) => {

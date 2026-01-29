@@ -18,7 +18,7 @@ export default function ArticleSection() {
 
     return (
         <section>
-            <div className="wrapper pb-15 lg:pb-[6vw]">
+            <div className="wrapper">
                 {/* STATIC HEADING */}
                 <h2 className="mb-7! lg:mb-[2vw]">Article & News</h2>
 

@@ -37,12 +37,11 @@ export default function FeaturedProducts({ products = [] }) {
                 <div className="flex items-end justify-between mb-10">
                     <div className="lg:w-1/2">
                         <h2 className="font-pat text-primary mb-4! lg:mb-0! leading-none">
-                            Popular Services
+                            Best Sellers
                         </h2>
-                        <h2>Find our most popular services</h2>
+                        <h2>Featured Products</h2>
                         <p className="lg:leading-none lg:mb-0! mt-5">
-                            Our veterinary team is committed to providing safe effective and compassionate care for pets of all ages
-                        </p>
+                            Our veterinary team is committed to providing safe effective and compassionate care for pets of all ages</p>
                     </div>
 
                     {/* Navigation */}

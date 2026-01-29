@@ -4,7 +4,7 @@ import Button from "@/components/common/Button";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { featuresList } from "@/data/data.js";
+import { affiliatefeaturesList } from "@/data/data.js";
 
 export default function ContactUs() {
 
@@ -28,7 +28,7 @@ export default function ContactUs() {
                     </p>
 
                     <ul className="my-5 lg:mt-[1vw] grid grid-cols-2 gap-y-5 lg:gap-y-[1vw]">
-                        {featuresList.map((item, idx) => (
+                        {affiliatefeaturesList.map((item, idx) => (
                             <li
                                 key={idx}
                                 className="flex gap-2 lg:gap-[.5vw] text-[16px] lg:text-[1vw] items-center font-[500]"
@@ -74,7 +74,7 @@ export default function ContactUs() {
                                 type="text"
                                 required
                                 placeholder="Enter your full name"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -87,7 +87,7 @@ export default function ContactUs() {
                                 type="text"
                                 required
                                 placeholder="Enter your company name"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -100,7 +100,7 @@ export default function ContactUs() {
                                 type="tel"
                                 required
                                 placeholder="+1 (555) 555-5555"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -113,7 +113,7 @@ export default function ContactUs() {
                                 type="email"
                                 required
                                 placeholder="you@example.com"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -126,7 +126,7 @@ export default function ContactUs() {
                                 type="text"
                                 required
                                 placeholder="Enter your website or social media link"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none"
+                                className="w-full bg-white text-black rounded-full border border-white focus:border focus:border-primary focus:outline-none"
                             />
                         </div>
 
@@ -156,7 +156,7 @@ export default function ContactUs() {
                                 rows="1"
                                 required
                                 placeholder="Tell us why you'd like to join"
-                                className="w-full bg-white rounded-full border border-white focus:border focus:border-primary focus:outline-none resize-none"
+                                className="w-full bg-white rounded-full text-black border border-white focus:border focus:border-primary focus:outline-none resize-none"
                             ></textarea>
                         </div>
                     </form>

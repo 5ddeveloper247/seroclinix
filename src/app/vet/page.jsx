@@ -14,10 +14,10 @@ export default function Vet() {
             <VetsCard />
             <ContactForm />
             <FeaturedVets />
-            <div className="bg-[rgba(241,241,241,0.5)]">
+            {/* <div className="bg-[rgba(241,241,241,0.5)]">
                 <TestimonialSection />
-            </div>
-            <FaqSection />
+            </div> */}
+            {/* <FaqSection /> */}
         </>
     )
 }

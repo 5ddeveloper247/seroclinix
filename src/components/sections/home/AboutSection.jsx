@@ -118,7 +118,9 @@ export default function AboutSection() {
             </a>
             <div className="w-full flex items-center gap-3 lg:gap-[1vw]">
               <div className="h-14 w-14 lg:h-[5vw] lg:w-[5vw] relative">
+              <Link href="/contact">
                 <Image src="/svg/phone.svg" alt="Phone icon" fill />
+              </Link>
               </div>
 
               <div>

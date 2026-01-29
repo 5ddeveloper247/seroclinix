@@ -10,8 +10,18 @@ export default function WhyInvest() {
             <div className="wrapper py-15 lg:py-[7vw]">
                 <div className="text-center">
                     <h2 className="font-pat text-[40px] text-primary mb-0!">Why Invest</h2>
-                    <h2 className="text-heading">
-                        What are the Investor benefits
+                    <h2 className="text-heading flex justify-center items-end gap-4">
+                        What are the
+                        <span>
+                            <Image
+                                src="/svg/heart.svg"
+                                className="w-10 lg:w-[3vw]"
+                                width={100}
+                                height={100}
+                                alt="Dog Image"
+                            />{" "}
+                        </span>
+                        Investor benefits
                     </h2>
                 </div>
 
@@ -19,14 +29,14 @@ export default function WhyInvest() {
                     {/* Left Feature Card */}
                     <div className="d_card relative overflow-hidden rounded-4xl lg:rounded-[2vw] flex items-center gap-[.7vw] bg-primary p-10 lg:p-0 min-h-75">
                         <Image
-                            src="/images/home/service-one.png"
-                            className="absolute bottom-[-6%] left-[-15%] lg:bottom-0 lg:left-[-3.5vw] w-45 lg:w-[12vw]"
+                            src="/images/investor/cute.png"
+                            className="absolute bottom-[-6%] left-[-15%] lg:bottom-0 lg:left-[-5vw] w-45 lg:w-[12vw]"
                             width={100}
                             height={100}
                             alt="Dog Image"
                         />
-                        <h3 className="text-white py-10 px-6 lg:px-[7vw]! lg:py-[4.5vw]! leading-none text-center lg:text-start">
-                            Value proposition for investors 
+                        <h3 className="text-white py-10 px-6 lg:px-[7vw]! lg:py-[5vw]! leading-none text-center lg:text-center">
+                            Value proposition for investors
                         </h3>
                     </div>
 
@@ -59,7 +69,7 @@ export default function WhyInvest() {
                     <div>
                         <div className="relative h-full w-full min-h-75">
                             <Image
-                                src="/images/home/service-six.png"
+                                src="/images/investor/sad.jpg"
                                 className="rounded-[50px] object-cover"
                                 fill
                                 alt="Dog Image"

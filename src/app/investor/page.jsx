@@ -1,5 +1,6 @@
 import HeroSection from "@/components/common/HeroSection";
 import About from "@/components/sections/investor/About";
+import FaqSection from "@/components/sections/investor/FaqSection";
 import InvestorForm from "@/components/sections/investor/inquiryForm";
 import WhyInvest from "@/components/sections/investor/WhyInvest";
 
@@ -10,6 +11,7 @@ export default function investor () {
             <About />
             <WhyInvest />
             <InvestorForm />
+            <FaqSection />
         </>
     )
 }

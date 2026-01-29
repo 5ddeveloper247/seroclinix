@@ -197,7 +197,7 @@ export default function Sidebar({
                 </Section>
 
                 {/* ================= PRODUCTS LIST ================= */}
-                <Section
+                {/* <Section
                     title="Products"
                     open={openSections.products}
                     toggle={() => toggleSection("products")}
@@ -223,7 +223,7 @@ export default function Sidebar({
                             </li>
                         ))}
                     </ul>
-                </Section>
+                </Section> */}
 
                 {/* ================= TAGS ================= */}
                 <Section

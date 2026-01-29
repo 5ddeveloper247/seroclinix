@@ -2,7 +2,7 @@ import Button from "@/components/common/Button";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { aboutCards, featuresList } from "@/data/data.js";
+import { partnerCards, featuresList } from "@/data/data.js";
 
 export default function About() {
   return (
@@ -45,7 +45,7 @@ export default function About() {
       </div>
 
       <div className="wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 my-15! lg:mt-[5vw]!">
-        {aboutCards.map((card, idx) => (
+        {partnerCards.map((card, idx) => (
           <div
             key={idx}
             className="flex flex-col items-center lg:items-start gap-4 lg:gap-[2vw] relative pt-9 lg:px-[3vw]! dotted-border"
