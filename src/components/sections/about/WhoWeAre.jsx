@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import { Skeleton } from "@heroui/react";
 
+
 export default function WhoWeAre() {
     const [activeTab, setActiveTab] = useState("mission");
     const [showSkeleton, setShowSkeleton] = useState(true);
@@ -12,7 +13,7 @@ export default function WhoWeAre() {
     // Redux state (about page)
     const { data } = useSelector((state) => state.about);
 
-    const whoWeAre = data?.who_we_are;
+    const whoWeAre = data?.who_we_are.tabs;
     const activeContent = whoWeAre?.[activeTab];
 
     // Show skeleton immediately until API data is available
@@ -28,10 +29,10 @@ export default function WhoWeAre() {
         { id: "community", label: "Community" },
     ];
 
-const [imageLoading, setImageLoading] = useState(true);
-useEffect(() => {
-  setImageLoading(true);
-}, [activeTab]);
+    const [imageLoading, setImageLoading] = useState(true);
+    useEffect(() => {
+        setImageLoading(true);
+    }, [activeTab]);
 
     return (
         <>
@@ -60,11 +61,11 @@ useEffect(() => {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`py-2 px-1 lg:py-[1vw] lg:px-[1.3vw] text-[12px] lg:text-[1.1vw] font-medium transition-all rounded-full w-full
-                  ${activeTab === tab.id
+                                ${activeTab === tab.id
                                         ? "text-white bg-primary"
                                         : "text-black border border-gray-300 hover:text-primary"
                                     }
-                `}
+                                `}
                             >
                                 {tab.label}
                             </button>
@@ -100,17 +101,17 @@ useEffect(() => {
 
                                 <div>
                                     <div className="relative h-[70vw] w-[90vw] lg:h-[26vw] lg:w-[36vw] rounded-4xl lg:rounded-[2vw] overflow-hidden">
-                                        
-                                          {imageLoading && (
+
+                                        {imageLoading && (
                                             <Skeleton className="absolute inset-0 rounded-4xl lg:rounded-[2vw]" />
-                                          )}    
+                                        )}
                                         <Image
                                             src={activeContent.image?.value}
                                             fill
                                             className="object-cover"
                                             alt={tabs.find(t => t.id === activeTab)?.label}
                                             sizes="100vw"
-                                                onLoadingComplete={() => setImageLoading(false)}
+                                            onLoadingComplete={() => setImageLoading(false)}
 
                                         />
                                     </div>

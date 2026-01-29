@@ -43,7 +43,7 @@ export default function HeaderComponent() {
     const [openMenu, setOpenMenu] = useState(null);
 
     return (
-        <Disclosure as="nav" className="bg-white sticky top-0 left-0 z-[9999] py-4 lg:py-0">
+        <Disclosure as="nav" className="bg-white sticky top-0 left-0 z-9999 py-4 lg:py-0">
             <div className="wrapper flex items-center justify-between">
                 {/* Logo */}
                 <div className="flex shrink-0 items-center">
@@ -94,11 +94,27 @@ export default function HeaderComponent() {
                                 )}
 
                                 {/* Dropdown Panel */}
-                                {hasDropdown && openMenu === item.name && (
-                                    <div className="absolute left-0 top-[72%] w-full bg-white py-10 transition duration-300 ease-in-out">
+                                {hasDropdown && (
+                                    <div 
+                                        className={classNames(
+                                            "absolute left-0 top-[72%] w-full bg-white py-10 transition-all duration-1000 ease-in-out",
+                                            openMenu === item.name 
+                                                ? "opacity-100 visible translate-y-0" 
+                                                : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                                        )}
+                                    >
                                         <div className="wrapper grid grid-cols-3 gap-10">
                                             {item.dropdown.map((subItem, idx) => (
-                                                <div key={idx} className="rounded-[1vw] p-[1vw] overflow-hidden hover:shadow-xl transition duration-300 ease-in-out">
+                                                <div 
+                                                    key={idx} 
+                                                    className={classNames(
+                                                        "rounded-[1vw] p-[1vw] overflow-hidden hover:shadow-xl transition-all duration-400 ease-in-out",
+                                                        openMenu === item.name 
+                                                            ? "opacity-100 translate-y-0" 
+                                                            : "opacity-0 translate-y-2"
+                                                    )}
+                                                    style={{ transitionDelay: openMenu === item.name ? `${idx * 50}ms` : '0ms' }}
+                                                >
                                                     {subItem.image ? (
                                                         <Link href={subItem.href}>
                                                             <div className="relative h-[14vw] w-full rounded-[1vw] overflow-hidden">
@@ -133,8 +149,8 @@ export default function HeaderComponent() {
                     {/* Mobile Menu Button */}
                     <div className="flex items-center sm:hidden">
                         <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2">
-                            <Bars3Icon className="block size-7 group-data-[open]:hidden" />
-                            <XMarkIcon className="hidden size-7 group-data-[open]:block" />
+                            <Bars3Icon className="block size-7 group-data-open:hidden transition-opacity duration-200" />
+                            <XMarkIcon className="hidden size-7 group-data-open:block transition-opacity duration-200" />
                         </DisclosureButton>
                     </div>
                 </div>
@@ -154,19 +170,24 @@ export default function HeaderComponent() {
                                         <>
                                             <Disclosure.Button
                                                 className={classNames(
-                                                    "flex items-center w-full text-left block rounded-md px-3 py-2 text-base font-medium",
+                                                    "flex items-center w-full text-left rounded-md px-3 py-2 text-base font-medium transition-colors duration-800",
                                                     isActive ? "text-primary" : "text-gray-600 hover:text-primary"
                                                 )}
                                             >
                                                 {item.name}
-                                                <ChevronDown className="size-5" />
+                                                <ChevronDown className={classNames(
+                                                    "size-5 ml-auto transition-transform duration-300",
+                                                    open && "rotate-180"
+                                                )} />
                                             </Disclosure.Button>
-                                            <Disclosure.Panel className="pl-4 space-y-1">
+                                            <Disclosure.Panel 
+                                                className="pl-4 space-y-1 overflow-hidden transition-all duration-300 ease-in-out data-closed:max-h-0 data-open:max-h-96 data-closed:opacity-0 data-open:opacity-100"
+                                            >
                                                 {item.dropdown.map((subItem, idx) => (
                                                     <Link
                                                         key={idx}
                                                         href={subItem.href}
-                                                        className="block px-3 py-2 text-gray-600 hover:text-primary"
+                                                        className="block px-3 py-2 text-gray-600 hover:text-primary transition-colors duration-200"
                                                     >
                                                         {subItem.label}
                                                     </Link>
