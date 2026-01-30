@@ -92,10 +92,11 @@ export default function WhoWeAre() {
                                 <div>
                                     <h2 className="mb-8 lg:mb-[1.5vw]!">{activeContent.heading?.value}</h2>
                                     <p>
-                                        Welcome to a new era of efficiency and innovation. At Seroclinix, we redefine the way
+                                        {activeContent.description?.value}
+                                        {/* Welcome to a new era of efficiency and innovation. At Seroclinix, we redefine the way
                                         businesses operate in the digital age. Our cloud-based software-as-a-service (SaaS)
                                         solutions are designed to elevate your workflow, boost collaboration, and drive
-                                        unparalleled results.
+                                        unparalleled results. */}
                                     </p>
                                 </div>
 
