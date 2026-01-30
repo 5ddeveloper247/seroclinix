@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
 import { apiRequest } from "@/lib/axios";
 
@@ -11,6 +11,33 @@ export default function FooterComponent() {
 
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
+    const [contactInfo, setContactInfo] = useState({
+        phone: "",
+        email: "",
+        location: "",
+    });
+
+    // Fetch contact info from API
+    useEffect(() => {
+        const fetchContactInfo = async () => {
+            try {
+                const response = await apiRequest("get", "/api/v1/sero-clinix/website-settings");
+                if (response?.success && response?.data) {
+                    const data = response.data;
+                    setContactInfo({
+                        phone: data.contact_phone || "",
+                        email: data.contact_email || "",
+                        location: data.contact_location || "",
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to fetch contact info:", error);
+                // Keep default empty values on error
+            }
+        };
+
+        fetchContactInfo();
+    }, []);
 
     const handleSubscribe = useCallback(async () => {
         if (!email.trim()) {
@@ -187,32 +214,47 @@ export default function FooterComponent() {
                             CONTACT
                         </h6>
                         <ul className="space-y-[1.5vw] mt-[2vw]">
-                            <li className="font-thin text-center lg:text-start text-white text-[16px] lg:text-[1.1vw]">
-                                <Link href="tel:8884567890" className="hover:text-gray-300 font-thin">
-                                    (888) 456 7890
-                                </Link>
-                            </li>
-                            <li className="font-thin text-center lg:text-start text-white text-[16px] lg:text-[1.1vw]">
-                                <Link href="mailto:info@example.com" className="hover:text-gray-300 font-thin">
-                                    info@example.com
-                                </Link>
-                            </li>
+                            {contactInfo.phone && (
+                                <li className="font-thin text-center lg:text-start text-white text-[16px] lg:text-[1.1vw]">
+                                    <Link 
+                                        href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} 
+                                        className="hover:text-gray-300 font-thin"
+                                    >
+                                        {contactInfo.phone}
+                                    </Link>
+                                </li>
+                            )}
+                            {contactInfo.email && (
+                                <li className="font-thin text-center lg:text-start text-white text-[16px] lg:text-[1.1vw]">
+                                    <Link 
+                                        href={`mailto:${contactInfo.email}`} 
+                                        className="hover:text-gray-300 font-thin"
+                                    >
+                                        {contactInfo.email}
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
 
-                        <h6 className="text-white font-normal text-center lg:text-start mb-3 mt-14 lg:mt-[3vw]">
-                            ADDRESS
-                        </h6>
-                        <ul className="space-y-[1.5vw] mt-[2vw]">
-                            <li className="font-thin text-center lg:text-start text-white text-[16px] lg:text-[1.1vw]">
-                                <Link
-                                    href="https://goo.gl/maps/example"
-                                    target="_blank"
-                                    className="hover:text-gray-300 font-thin"
-                                >
-                                    410 Sandtown, California 94001, USA
-                                </Link>
-                            </li>
-                        </ul>
+                        {contactInfo.location && (
+                            <>
+                                <h6 className="text-white font-normal text-center lg:text-start mb-3 mt-14 lg:mt-[3vw]">
+                                    ADDRESS
+                                </h6>
+                                <ul className="space-y-[1.5vw] mt-[2vw]">
+                                    <li className="font-thin text-center lg:text-start text-white text-[16px] lg:text-[1.1vw]">
+                                        <Link
+                                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.location)}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="hover:text-gray-300 font-thin"
+                                        >
+                                            {contactInfo.location}
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

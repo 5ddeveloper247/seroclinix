@@ -1,10 +1,55 @@
 "use client";
 
 import Button from "@/components/common/Button";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
+import { apiRequest } from "@/lib/axios";
 
 export default function BookingForm() {
     const [submitted, setSubmitted] = useState(false);
+    const [contactInfo, setContactInfo] = useState({
+        phone: "",
+        email: "",
+        working_hours: {
+            weekdays: "",
+            saturday: "",
+            sunday: "",
+        },
+    });
+
+    // Fetch contact info from API
+    useEffect(() => {
+        const fetchContactInfo = async () => {
+            try {
+                const response = await apiRequest("get", "/api/v1/sero-clinix/website-settings");
+                if (response?.success && response?.data) {
+                    const data = response.data;
+                    setContactInfo({
+                        phone: data.contact_phone || "",
+                        email: data.contact_email || "",
+                        working_hours: {
+                            weekdays: data.working_hours?.weekdays || "7am - 6pm",
+                            saturday: data.working_hours?.saturday || "9am - 4pm",
+                            sunday: data.working_hours?.sunday || "Closed",
+                        },
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to fetch contact info:", error);
+                // Set default values on error
+                setContactInfo({
+                    phone: "",
+                    email: "",
+                    working_hours: {
+                        weekdays: "7am - 6pm",
+                        saturday: "9am - 4pm",
+                        sunday: "Closed",
+                    },
+                });
+            }
+        };
+
+        fetchContactInfo();
+    }, []);
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
@@ -153,42 +198,52 @@ export default function BookingForm() {
 
                 {/* CONTACT INFO */}
                 <div className="lg:w-1/3 flex flex-col gap-5 lg:gap-[1vw]">
-                    <div className="flex items-center gap-4 bg-[#30AFB7] p-6 lg:p-[1.5vw] rounded-3xl lg:rounded-[1.5vw]">
-                        <img src="/svg/phone-white.svg" className="w-20 lg:w-[4vw]" alt="Phone" />
-                        <div className="text-white">
-                            <h4 className="font-light mb-2">+01 234 567890</h4>
-                            <p className="opacity-100">
-                                Call us directly if you need any urgent help. Our agents will help you.
-                            </p>
+                    {contactInfo.phone && (
+                        <div className="flex items-center gap-4 bg-[#30AFB7] p-6 lg:p-[1.5vw] rounded-3xl lg:rounded-[1.5vw]">
+                            <img src="/svg/phone-white.svg" className="w-20 lg:w-[4vw]" alt="Phone" />
+                            <div className="text-white">
+                                <h4 className="font-light mb-2">{contactInfo.phone}</h4>
+                                <p className="opacity-100">
+                                    Call us directly if you need any urgent help. Our agents will help you.
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
-                    <div className="flex items-center gap-4 bg-primary p-6 lg:p-[1.5vw] rounded-3xl lg:rounded-[1.5vw]">
-                        <img src="/svg/calender.svg" className="w-20 lg:w-[4vw]" alt="Email" />
-                        <div className="text-white">
-                            <h4 className="font-light mb-2">info@business.com</h4>
-                            <p className="opacity-100">
-                                Email us directly if you need any help. Our agents will help you.
-                            </p>
+                    {contactInfo.email && (
+                        <div className="flex items-center gap-4 bg-primary p-6 lg:p-[1.5vw] rounded-3xl lg:rounded-[1.5vw]">
+                            <img src="/svg/calender.svg" className="w-20 lg:w-[4vw]" alt="Email" />
+                            <div className="text-white">
+                                <h4 className="font-light mb-2">{contactInfo.email}</h4>
+                                <p className="opacity-100">
+                                    Email us directly if you need any help. Our agents will help you.
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
-                    <div className="flex items-center gap-4 bg-[#00565F] p-6 lg:p-[1.5vw] rounded-3xl lg:rounded-[1.5vw]">
+                    <div className="flex items-center gap-4 bg-footer p-6 lg:p-[1.5vw] rounded-3xl lg:rounded-[1.5vw]">
                         <img src="/svg/clock-white.svg" className="w-20 lg:w-[4vw]" alt="Clock" />
                         <div className="text-white w-full">
                             <h4 className="font-light mb-2">Working Hours</h4>
-                            <div className="flex justify-between">
-                                <span>Mon - Fri:</span>
-                                <span>7am - 6pm</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span>Saturday:</span>
-                                <span>9am - 4pm</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span>Sunday:</span>
-                                <span>Closed</span>
-                            </div>
+                            {contactInfo.working_hours.weekdays && (
+                                <div className="flex justify-between">
+                                    <span>Mon - Fri:</span>
+                                    <span>{contactInfo.working_hours.weekdays}</span>
+                                </div>
+                            )}
+                            {contactInfo.working_hours.saturday && (
+                                <div className="flex justify-between">
+                                    <span>Saturday:</span>
+                                    <span>{contactInfo.working_hours.saturday}</span>
+                                </div>
+                            )}
+                            {contactInfo.working_hours.sunday && (
+                                <div className="flex justify-between">
+                                    <span>Sunday:</span>
+                                    <span>{contactInfo.working_hours.sunday}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

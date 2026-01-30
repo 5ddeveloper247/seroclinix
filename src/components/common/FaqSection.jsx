@@ -28,6 +28,10 @@ export default function FaqSection({ faqs = [], loading = false }) {
     // Decide items to render: skeletons or real faqs
     const itemsToRender = showSkeleton ? Array(5).fill(0) : sortedFaqs;
 
+    if (!loading && faqs.length === 0) {
+        return null;
+    }
+
     return (
         <section className="wrapper py-15 lg:py-[6vw]">
             {/* Header */}
