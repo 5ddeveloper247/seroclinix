@@ -23,10 +23,18 @@ export default function DetailSection({ article, allArticles = [] }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-[3vw]">
                         {/* Content Section */}
                         <div>
-                            <div className="flex item-center gap-2 mb-3">
-                                {article.date && <span>{article.date}</span>}
+                            <div className="flex items-center gap-2 mb-3">
+                                {article.date && (
+                                    <span>
+                                        {new Date(article.date).toLocaleDateString("en-GB")}
+                                    </span>
+                                )}
+                                <span>
+                                    <img src="/svg/dot.svg" alt="" />
+                                </span>
                                 {article.read_time && <span>{article.read_time}</span>}
                             </div>
+
                             <h3 className="text-[22px] lg:text-[2.8vw] font-normal leading-snug mb-3">
                                 {article.title}
                             </h3>
@@ -52,26 +60,61 @@ export default function DetailSection({ article, allArticles = [] }) {
                             )}
 
                             {(article.author || article.date || article.read_time) && (
-                                <div>
-                                    <div className="flex items-center gap-[1vw] mt-5">
-                                        {article.author_image && (
-                                            <img
-                                                src={article.author_image}
-                                                className="w-[3vw] h-[3vw] rounded-full object-cover"
-                                                alt={article.author || "Author"}
-                                            />
-                                        )}
+                                <div className="mt-5 flex items-center justify-between">
+                                    {/* Left: Author info */}
+                                    <div className="flex items-center gap-[1vw]">
+                                        <img
+                                            src="/images/blog/article-one.png"
+                                            className="w-[3vw] h-[3vw] rounded-full object-cover"
+                                            alt={article.author || "Author"}
+                                        />
 
                                         <div>
-                                            {article.author && <span>{article.author}</span>}
-                                            <div className="flex item-center gap-2">
-                                                {article.date && <span>{article.date}</span>}
-                                                {article.read_time && <span>{article.read_time}</span>}
+                                                <span className="block text-[16px] text-black">
+                                                    Guy Hawkins
+                                                </span>
+
+                                            <div className="flex items-center gap-2 text-sm text-gray-400">
+                                                {article.date && (
+                                                    <span>
+                                                        {new Date(article.date).toLocaleDateString("en-US", {
+                                                            month: "long",
+                                                            day: "numeric",
+                                                            year: "numeric",
+                                                        })}
+                                                    </span>
+                                                )}
+                                                {article.read_time && <span>• {article.read_time}</span>}
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Right: Social icons */}
+                                    <div className="flex items-center gap-3">
+                                        {/* LinkedIn */}
+                                        <span className="social-icon">
+                                            <img src="/svg/linkedin.svg" alt="LinkedIn" />
+                                        </span>
+
+                                        {/* Link */}
+                                        <span className="social-icon">
+                                            <img src="/svg/link.svg" alt="Copy link" />
+                                        </span>
+
+                                        {/* X */}
+                                        <span className="social-icon">
+                                            <img src="/svg/x.svg" alt="X" />
+                                        </span>
+
+                                        {/* Facebook */}
+                                        <span className="social-icon">
+                                            <img src="/svg/fb.svg" alt="Facebook" />
+                                        </span>
+                                    </div>
                                 </div>
                             )}
+
+
                         </div>
 
                         {/* Image Section */}
