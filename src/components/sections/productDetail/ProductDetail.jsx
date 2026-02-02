@@ -38,7 +38,7 @@ export default function ProductDetailPage({ product  }) {
                     </div>
 
                     {/* Pagination Dots */}
-                    <div className="flex gap-2 mt-4">
+                    <div className="flex gap-2 relative -top-4">
                         {product.images.map((_, idx) => (
                             <span
                                 key={idx}
@@ -50,14 +50,26 @@ export default function ProductDetailPage({ product  }) {
 
 
                     {/* Thumbnails */}
-                    <div className="grid grid-cols-7 gap-2 mt-4 overflow-x-auto">
-                        {product.images.map((_, idx) => (
-                            <span
-                                key={idx}
-                                onClick={() => selectImage(idx)}
-                                className={`w-5 h-1 rounded-full cursor-pointer transition-all duration-300 ${currentImageIndex === idx ? "bg-primary scale-125" : "bg-gray-300"}`}
-                            />
-                        ))}
+                    <div className="grid grid-cols-7 gap-2 mt-4">
+                        {product.images.length > 1 && (
+                            <div className="flex gap-2 mt-4">
+                                {product.images.map((img, idx) => (
+                                    <div
+                                        key={idx}
+                                        onClick={() => selectImage(idx)}
+                                        className={`w-16 h-16 lg:w-[4vw] lg:h-[4vw] flex-shrink-0 relative rounded-lg cursor-pointer border-2 transition-all duration-300 ${currentImageIndex === idx ? "border-primary scale-105" : "border-gray-300"
+                                            }`}
+                                    >
+                                        <Image
+                                            src={img}
+                                            alt={`${product.name} thumbnail ${idx + 1}`}
+                                            fill
+                                            className="rounded-lg"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                     </div>
                 </div>
